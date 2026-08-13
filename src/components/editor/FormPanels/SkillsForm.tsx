@@ -5,18 +5,16 @@ import { SkillCategory } from '../../../types/cv';
 import { Code, Plus, Trash2, Tag } from 'lucide-react';
 
 interface SkillsFormProps {
-  categories: SkillCategory[];
+  skillCategories: SkillCategory[];
   onChange: (updated: SkillCategory[]) => void;
 }
 
-export const SkillsForm: React.FC<SkillsFormProps> = ({ categories, onChange }) => {
-  // Keep raw input strings in local state so commas & spaces are preserved while typing
+export const SkillsForm: React.FC<SkillsFormProps> = ({ skillCategories, onChange }) => {
   const [rawTexts, setRawTexts] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // Synchronize categories into rawTexts whenever categories change externally (e.g. from preview editing)
     const updated: Record<string, string> = {};
-    categories.forEach((cat) => {
+    skillCategories.forEach((cat) => {
       const externalStr = cat.skills.join(', ');
       const currentParsed = (rawTexts[cat.id] || '').split(',').map((s) => s.trim()).filter(Boolean).join(', ');
       if (currentParsed !== externalStr || rawTexts[cat.id] === undefined) {
@@ -26,7 +24,7 @@ export const SkillsForm: React.FC<SkillsFormProps> = ({ categories, onChange }) 
     if (Object.keys(updated).length > 0) {
       setRawTexts((prev) => ({ ...prev, ...updated }));
     }
-  }, [categories]);
+  }, [skillCategories]);
 
   const handleAddCategory = () => {
     const newId = 'sc-' + Date.now();
@@ -36,17 +34,17 @@ export const SkillsForm: React.FC<SkillsFormProps> = ({ categories, onChange }) 
       skills: ['Skill 1', 'Skill 2'],
     };
     setRawTexts((prev) => ({ ...prev, [newId]: 'Skill 1, Skill 2' }));
-    onChange([...categories, newCat]);
+    onChange([...skillCategories, newCat]);
   };
 
   const handleUpdateName = (id: string, name: string) => {
-    onChange(categories.map((c) => (c.id === id ? { ...c, categoryName: name } : c)));
+    onChange(skillCategories.map((c) => (c.id === id ? { ...c, categoryName: name } : c)));
   };
 
   const handleSkillsTextChange = (id: string, text: string) => {
     setRawTexts((prev) => ({ ...prev, [id]: text }));
     const parsedSkills = text.split(',').map((s) => s.trim()).filter(Boolean);
-    onChange(categories.map((c) => (c.id === id ? { ...c, skills: parsedSkills } : c)));
+    onChange(skillCategories.map((c) => (c.id === id ? { ...c, skills: parsedSkills } : c)));
   };
 
   const handleDelete = (id: string) => {
@@ -55,7 +53,7 @@ export const SkillsForm: React.FC<SkillsFormProps> = ({ categories, onChange }) 
       delete copy[id];
       return copy;
     });
-    onChange(categories.filter((c) => c.id !== id));
+    onChange(skillCategories.filter((c) => c.id !== id));
   };
 
   return (
@@ -74,7 +72,7 @@ export const SkillsForm: React.FC<SkillsFormProps> = ({ categories, onChange }) 
       </div>
 
       <div className="space-y-3">
-        {categories.map((cat) => {
+        {skillCategories.map((cat) => {
           const inputValue = rawTexts[cat.id] !== undefined ? rawTexts[cat.id] : cat.skills.join(', ');
 
           return (

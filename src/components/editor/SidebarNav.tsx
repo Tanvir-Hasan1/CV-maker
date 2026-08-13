@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { 
-  User, Sparkles, Briefcase, GraduationCap, Code, FolderCheck, 
+import {
+  User, Sparkles, Briefcase, GraduationCap, Code, FolderCheck,
   Trophy, Globe2, Layers, EyeOff, PanelLeftClose, PanelLeftOpen
 } from 'lucide-react';
 
@@ -48,9 +48,8 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
           )}
           <button
             onClick={onToggleCollapse}
-            className={`p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ${
-              isCollapsed ? 'mx-auto' : 'ml-auto -mr-1'
-            }`}
+            className={`p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ${isCollapsed ? 'mx-auto' : 'ml-auto -mr-1'
+              }`}
             title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
           >
             {isCollapsed ? (
@@ -64,13 +63,11 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
         {/* ALWAYS TOP: PERSONAL INFO */}
         <button
           onClick={() => onSelectTab('personalInfo')}
-          className={`w-full flex items-center ${
-            isCollapsed ? 'justify-center p-3' : 'justify-between p-2.5'
-          } rounded-xl text-xs font-semibold transition-colors group relative ${
-            activeTab === 'personalInfo'
+          className={`w-full flex items-center ${isCollapsed ? 'justify-center p-3' : 'justify-between p-2.5'
+            } rounded-xl text-xs font-semibold transition-colors group relative ${activeTab === 'personalInfo'
               ? 'bg-sky-500/10 text-sky-400 border border-sky-500/30'
               : 'text-slate-300 hover:bg-slate-800'
-          }`}
+            }`}
           title={isCollapsed ? SECTION_METADATA.personalInfo.label : undefined}
         >
           <div className="flex items-center gap-2.5">
@@ -89,15 +86,13 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
             <button
               key={secKey}
               onClick={() => onSelectTab(secKey)}
-              className={`w-full flex items-center ${
-                isCollapsed ? 'justify-center p-3' : 'justify-between p-2.5'
-              } rounded-xl text-xs font-semibold transition-colors relative group ${
-                activeTab === secKey
+              className={`w-full flex items-center ${isCollapsed ? 'justify-center p-3' : 'justify-between p-2.5'
+                } rounded-xl text-xs font-semibold transition-colors relative group ${activeTab === secKey
                   ? 'bg-sky-500/10 text-sky-400 border border-sky-500/30'
                   : isHidden
-                  ? 'opacity-40 text-slate-500 hover:bg-slate-800'
-                  : 'text-slate-300 hover:bg-slate-800'
-              }`}
+                    ? 'opacity-40 text-slate-500 hover:bg-slate-800'
+                    : 'text-slate-300 hover:bg-slate-800'
+                }`}
               title={isCollapsed ? meta.label : undefined}
             >
               <div className="flex items-center gap-2.5">

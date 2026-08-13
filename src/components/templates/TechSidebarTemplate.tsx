@@ -161,7 +161,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                     contentEditable
                     suppressContentEditableWarning
                     onBlur={(e) => updateEducationItem(edu.id, 'gpa', e.currentTarget.textContent?.replace('CGPA: ', '') || '')}
-                    className={`px-1.5 py-0.2 rounded bg-sky-600 text-white font-bold text-[9px] ${editableClass}`}
+                    className="px-1.5 py-0.2 rounded bg-sky-600 text-white font-bold text-[9px] hover:outline hover:outline-1 hover:outline-sky-400 focus:outline-2 focus:outline-sky-400 focus:bg-sky-700 focus:text-white cursor-text transition-all"
                   >
                     CGPA: {edu.gpa}
                   </span>
@@ -391,6 +391,20 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                 className={editableClass}
               >
                 {personalInfo.github}
+              </span>
+            </span>
+          )}
+          {personalInfo.website && (
+            <span className="flex items-center gap-1">
+              <Globe className="w-3.5 h-3.5 text-teal-600" />
+              <span className="font-medium">Portfolio:</span>
+              <span
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')}
+                className={editableClass}
+              >
+                {personalInfo.website}
               </span>
             </span>
           )}

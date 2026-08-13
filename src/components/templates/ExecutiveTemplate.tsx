@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResumeData } from '../../types/cv';
 import { CVSettings } from '../../types/settings';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Globe } from 'lucide-react';
 
 interface TemplateProps {
   data: ResumeData;
@@ -37,6 +37,7 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({ data, settings }) =
           {personalInfo.location && <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{personalInfo.location}</span>}
           {personalInfo.linkedin && <span className="flex items-center gap-1"><Linkedin className="w-3.5 h-3.5" />{personalInfo.linkedin}</span>}
           {personalInfo.github && <span className="flex items-center gap-1"><Github className="w-3.5 h-3.5" />{personalInfo.github}</span>}
+          {personalInfo.website && <span className="flex items-center gap-1"><Globe className="w-3.5 h-3.5" />{personalInfo.website}</span>}
         </div>
       </div>
 

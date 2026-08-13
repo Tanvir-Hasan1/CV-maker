@@ -10,15 +10,7 @@ import { Toolbar } from '../components/editor/Toolbar';
 import { SidebarNav } from '../components/editor/SidebarNav';
 import { A4PreviewPane } from '../components/preview/A4PreviewPane';
 import { SectionOrderModal } from '../components/editor/SectionOrderModal';
-
-// Form Panels
-import { PersonalForm } from '../components/editor/FormPanels/PersonalForm';
-import { SummaryForm } from '../components/editor/FormPanels/SummaryForm';
-import { ExperienceForm } from '../components/editor/FormPanels/ExperienceForm';
-import { EducationForm } from '../components/editor/FormPanels/EducationForm';
-import { SkillsForm } from '../components/editor/FormPanels/SkillsForm';
-import { ProjectsForm } from '../components/editor/FormPanels/ProjectsForm';
-import { AchievementsForm } from '../components/editor/FormPanels/AchievementsForm';
+import { RightFormPanel } from '../components/editor/RightFormPanel';
 
 import { cvStorageService } from '../services/storage/LocalCVStorage';
 import { pdfExporter } from '../services/export/pdfExporter';
@@ -27,7 +19,7 @@ import { ParseResult } from '../types/extraction';
 import { TemplateId } from '../types/settings';
 import { TEMPLATE_REGISTRY } from '../components/templates/TemplateRegistry';
 
-import { 
+import {
   Sparkles, Shield, ArrowRight, CheckCircle2
 } from 'lucide-react';
 
@@ -462,9 +454,8 @@ export default function Home() {
             {/* COLUMN 1: MINIMIZABLE & RESIZABLE LEFT SIDEBAR */}
             <div
               style={{ width: isLeftCollapsed ? '60px' : `${leftSidebarWidth}px` }}
-              className={`shrink-0 flex flex-col h-full bg-slate-900 border-r border-slate-800 ${
-                isResizingLeft ? 'transition-none' : 'transition-[width] duration-200 ease-out'
-              }`}
+              className={`shrink-0 flex flex-col h-full bg-slate-900 border-r border-slate-800 ${isResizingLeft ? 'transition-none' : 'transition-[width] duration-200 ease-out'
+                }`}
             >
               <SidebarNav
                 activeTab={activeTab}
@@ -514,108 +505,12 @@ export default function Home() {
             </div>
 
             {/* COLUMN 3: RIGHT FORM EDIT PANEL */}
-            <div
-              style={{ width: `${rightPanelWidth}px` }}
-              className="bg-slate-900 border-l border-slate-800 p-6 overflow-y-auto shrink-0 select-none relative"
-            >
-              {activeTab === 'personalInfo' && (
-                <PersonalForm
-                  data={activeDocument.data.personalInfo}
-                  onChange={(personalInfo) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, personalInfo },
-                    })
-                  }
-                />
-              )}
-
-              {activeTab === 'summary' && (
-                <SummaryForm
-                  summary={activeDocument.data.summary || ''}
-                  onChange={(summary) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, summary },
-                    })
-                  }
-                />
-              )}
-
-              {activeTab === 'experience' && (
-                <ExperienceForm
-                  entries={activeDocument.data.experience}
-                  onChange={(experience) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, experience },
-                    })
-                  }
-                />
-              )}
-
-              {activeTab === 'education' && (
-                <EducationForm
-                  entries={activeDocument.data.education}
-                  onChange={(education) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, education },
-                    })
-                  }
-                />
-              )}
-
-              {activeTab === 'skillCategories' && (
-                <SkillsForm
-                  categories={activeDocument.data.skillCategories}
-                  onChange={(skillCategories) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, skillCategories },
-                    })
-                  }
-                />
-              )}
-
-              {activeTab === 'projects' && (
-                <ProjectsForm
-                  projects={activeDocument.data.projects}
-                  onChange={(projects) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, projects },
-                    })
-                  }
-                />
-              )}
-
-              {activeTab === 'achievements' || activeTab === 'additional' ? (
-                <AchievementsForm
-                  achievements={activeDocument.data.achievements}
-                  onAchievementsChange={(achievements) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, achievements },
-                    })
-                  }
-                  languages={activeDocument.data.languages}
-                  onLanguagesChange={(languages) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, languages },
-                    })
-                  }
-                  interests={activeDocument.data.interests}
-                  onInterestsChange={(interests) =>
-                    updateActiveDocument({
-                      ...activeDocument,
-                      data: { ...activeDocument.data, interests },
-                    })
-                  }
-                />
-              ) : null}
-            </div>
+            <RightFormPanel
+              activeTab={activeTab}
+              activeDocument={activeDocument}
+              updateActiveDocument={updateActiveDocument}
+              width={rightPanelWidth}
+            />
           </div>
         </div>
       )}

@@ -5,11 +5,11 @@ import { Experience } from '../../../types/cv';
 import { Briefcase, Plus, Trash2, Copy, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface ExperienceFormProps {
-  entries: Experience[];
+  experiences: Experience[];
   onChange: (updated: Experience[]) => void;
 }
 
-export const ExperienceForm: React.FC<ExperienceFormProps> = ({ entries, onChange }) => {
+export const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }) => {
   const handleAdd = () => {
     const newEntry: Experience = {
       id: 'exp-' + Date.now(),
@@ -20,17 +20,17 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ entries, onChang
       isCurrent: true,
       description: '• Developed responsive web applications\n• Collaborated with cross-functional teams',
     };
-    onChange([...entries, newEntry]);
+    onChange([...experiences, newEntry]);
   };
 
   const handleUpdate = (id: string, field: keyof Experience, value: any) => {
     onChange(
-      entries.map((entry) => (entry.id === id ? { ...entry, [field]: value } : entry))
+      experiences.map((entry) => (entry.id === id ? { ...entry, [field]: value } : entry))
     );
   };
 
   const handleDelete = (id: string) => {
-    onChange(entries.filter((entry) => entry.id !== id));
+    onChange(experiences.filter((entry) => entry.id !== id));
   };
 
   const handleDuplicate = (entry: Experience) => {
@@ -39,13 +39,13 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ entries, onChang
       id: 'exp-' + Date.now(),
       jobTitle: `${entry.jobTitle} (Copy)`,
     };
-    onChange([...entries, dup]);
+    onChange([...experiences, dup]);
   };
 
   const handleMove = (index: number, direction: 'up' | 'down') => {
     const newIdx = direction === 'up' ? index - 1 : index + 1;
-    if (newIdx < 0 || newIdx >= entries.length) return;
-    const list = [...entries];
+    if (newIdx < 0 || newIdx >= experiences.length) return;
+    const list = [...experiences];
     const [moved] = list.splice(index, 1);
     list.splice(newIdx, 0, moved);
     onChange(list);
@@ -67,7 +67,7 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ entries, onChang
       </div>
 
       <div className="space-y-4">
-        {entries.map((exp, idx) => (
+        {experiences.map((exp, idx) => (
           <div
             key={exp.id}
             className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3 relative group"
@@ -85,7 +85,7 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ entries, onChang
                 </button>
                 <button
                   onClick={() => handleMove(idx, 'down')}
-                  disabled={idx === entries.length - 1}
+                  disabled={idx === experiences.length - 1}
                   className="p-1 text-slate-500 hover:text-white disabled:opacity-20"
                 >
                   <ChevronDown className="w-3.5 h-3.5" />

@@ -35,6 +35,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ data, settings }) => 
           {personalInfo.location && <span>• {personalInfo.location}</span>}
           {personalInfo.linkedin && <span>• {personalInfo.linkedin}</span>}
           {personalInfo.github && <span>• {personalInfo.github}</span>}
+          {personalInfo.website && <span>• {personalInfo.website}</span>}
         </div>
       </div>
 

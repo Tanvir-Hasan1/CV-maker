@@ -24,7 +24,7 @@ export interface TemplateInfo {
 export const TEMPLATE_REGISTRY: Record<TemplateId, TemplateInfo> = {
   'tech-sidebar': {
     id: 'tech-sidebar',
-    name: 'Tech Sidebar (Tanvir Layout)',
+    name: 'Tech Sidebar',
     description: 'Two-column software developer layout with technical skill pills, summary callout box, and clean section dividers.',
     category: 'Engineering',
     badge: 'Popular',

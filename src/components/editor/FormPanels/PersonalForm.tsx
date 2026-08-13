@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PersonalInfo } from '../../../types/cv';
-import { User, Mail, Phone, MapPin, Globe, Linkedin, Github, Briefcase } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Globe, Linkedin, Github } from 'lucide-react';
 
 interface PersonalFormProps {
   data: PersonalInfo;

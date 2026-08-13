@@ -38,6 +38,7 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({ data, settings }) =>
           {personalInfo.phone && <p>{personalInfo.phone}</p>}
           {personalInfo.location && <p>{personalInfo.location}</p>}
           {personalInfo.linkedin && <p>{personalInfo.linkedin}</p>}
+          {personalInfo.website && <p>{personalInfo.website}</p>}
         </div>
       </div>
 

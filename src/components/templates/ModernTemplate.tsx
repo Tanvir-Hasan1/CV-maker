@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResumeData } from '../../types/cv';
 import { CVSettings } from '../../types/settings';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Globe } from 'lucide-react';
 
 interface TemplateProps {
   data: ResumeData;
@@ -250,6 +250,14 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
               <MapPin className="w-3 h-3" />
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('location', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.location}
+              </span>
+            </span>
+          )}
+          {personalInfo.website && (
+            <span className="flex items-center gap-1">
+              <Globe className="w-3 h-3" />
+              <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')} className={editableClass}>
+                {personalInfo.website}
               </span>
             </span>
           )}

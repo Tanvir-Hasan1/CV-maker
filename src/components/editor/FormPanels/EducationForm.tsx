@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { Education } from '../../../types/cv';
-import { GraduationCap, Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
+import { GraduationCap, Plus, Trash2 } from 'lucide-react';
 
 interface EducationFormProps {
-  entries: Education[];
+  educations: Education[];
   onChange: (updated: Education[]) => void;
 }
 
-export const EducationForm: React.FC<EducationFormProps> = ({ entries, onChange }) => {
+export const EducationForm: React.FC<EducationFormProps> = ({ educations, onChange }) => {
   const handleAdd = () => {
     const newEntry: Education = {
       id: 'edu-' + Date.now(),
@@ -21,17 +21,17 @@ export const EducationForm: React.FC<EducationFormProps> = ({ entries, onChange 
       gpa: '3.77/4.00',
       relevantCoursework: ['Data Structures & Algorithms', 'Software Engineering'],
     };
-    onChange([...entries, newEntry]);
+    onChange([...educations, newEntry]);
   };
 
   const handleUpdate = (id: string, field: keyof Education, value: any) => {
     onChange(
-      entries.map((entry) => (entry.id === id ? { ...entry, [field]: value } : entry))
+      educations.map((entry) => (entry.id === id ? { ...entry, [field]: value } : entry))
     );
   };
 
   const handleDelete = (id: string) => {
-    onChange(entries.filter((entry) => entry.id !== id));
+    onChange(educations.filter((entry) => entry.id !== id));
   };
 
   return (
@@ -50,7 +50,7 @@ export const EducationForm: React.FC<EducationFormProps> = ({ entries, onChange 
       </div>
 
       <div className="space-y-4">
-        {entries.map((edu, idx) => (
+        {educations.map((edu, idx) => (
           <div key={edu.id} className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
             <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-900">
               <span className="font-mono text-slate-500">#{idx + 1} {edu.degree}</span>
