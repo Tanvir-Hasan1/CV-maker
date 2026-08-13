@@ -4,8 +4,8 @@ import { ParsedDocument, ParseResult, ResumeParser, SectionConfidence } from '..
 export class GeminiResumeParser implements ResumeParser {
   private apiKey: string;
 
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
   }
 
   /**
@@ -50,6 +50,7 @@ export class GeminiResumeParser implements ResumeParser {
       throw new Error('Please enter a free Gemini API key to enable AI extraction.');
     }
 
+    console.log('🤖 Sending document text to Google Gemini AI API...');
     const candidateModels = await this.getAvailableModels();
 
     const prompt = `You are an expert AI resume parser. Extract structured resume information from the raw document text below and format it strictly as a single JSON object.

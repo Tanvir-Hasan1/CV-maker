@@ -3,6 +3,7 @@ import { ParsedDocument, ParseResult, ResumeParser, SectionConfidence } from '..
 
 export class RuleBasedResumeParser implements ResumeParser {
   async parse(doc: ParsedDocument): Promise<ParseResult> {
+    console.log('⚙️ Parsing CV using local text rules & NLP regex heuristics...');
     const text = doc.rawText;
     const lines = text.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);
 

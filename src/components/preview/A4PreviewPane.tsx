@@ -53,7 +53,9 @@ export const A4PreviewPane: React.FC<A4PreviewPaneProps> = ({
   // Calculate Auto-Fit Scale
   // Standard A4 width at 96dpi is ~794px (210mm)
   const autoFitScale = Math.max(0.35, Math.min(1.4, (containerWidth - 24) / 794));
-  const activeScale = userZoom !== null ? userZoom : (containerWidth < 768 ? autoFitScale : zoom);
+  
+  // Use toolbar zoom prop as primary zoom level, falling back to autoFitScale on mobile view
+  const activeScale = userZoom !== null ? userZoom : zoom;
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -68,12 +70,10 @@ export const A4PreviewPane: React.FC<A4PreviewPaneProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  // Sync with toolbar zoom prop if desktop zoom changes
+  // Sync userZoom with toolbar zoom prop whenever zoom changes
   useEffect(() => {
-    if (containerWidth >= 768) {
-      setUserZoom(zoom);
-    }
-  }, [zoom, containerWidth]);
+    setUserZoom(zoom);
+  }, [zoom]);
 
   // Touch Gesture Handlers
   const handleTouchStart = (e: React.TouchEvent) => {

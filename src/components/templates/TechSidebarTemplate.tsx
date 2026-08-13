@@ -60,6 +60,26 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
     });
   };
 
+  const updateSingleProjectTech = (projId: string, techIdx: number, val: string) => {
+    if (!onUpdateData) return;
+    onUpdateData({
+      ...data,
+      projects: projects.map((p) => {
+        if (p.id !== projId) return p;
+        const newTechs = [...(p.technologies || [])];
+        if (val.includes(',')) {
+          const splitTechs = val.split(',').map((s) => s.trim()).filter(Boolean);
+          newTechs.splice(techIdx, 1, ...splitTechs);
+        } else if (val.trim() === '') {
+          newTechs.splice(techIdx, 1);
+        } else {
+          newTechs[techIdx] = val.trim();
+        }
+        return { ...p, technologies: newTechs };
+      }),
+    });
+  };
+
   const updateSkillCategoryName = (catId: string, name: string) => {
     if (!onUpdateData) return;
     onUpdateData({
@@ -229,7 +249,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
 
   const renderProjects = () => (
     projects && projects.length > 0 && isVisible('projects') ? (
-      <div key="projects" className="mb-5" onClick={() => onSelectSection?.('projects')}>
+      <div key="projects" className="mb-5 cursor-pointer" onClick={() => onSelectSection?.('projects')}>
         <h2
           className="text-xs font-bold uppercase tracking-wider pb-1 mb-3 border-b-2"
           style={{ color: accentColor, borderColor: accentColor }}
@@ -248,7 +268,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                 {proj.name}
               </h3>
 
-              <div className="flex flex-wrap items-center gap-x-3 text-[10px] text-slate-600">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[10px] text-slate-600">
                 {proj.subtitle && (
                   <span
                     contentEditable
@@ -259,16 +279,58 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                     {proj.subtitle}
                   </span>
                 )}
+                {proj.githubUrl && (
+                  <span className="flex items-center gap-1 font-mono text-slate-500">
+                    <Github className="w-3 h-3 text-slate-700" />
+                    <span
+                      contentEditable
+                      suppressContentEditableWarning
+                      onBlur={(e) => updateProjectItem(proj.id, 'githubUrl', e.currentTarget.textContent || '')}
+                      className={editableClass}
+                    >
+                      {proj.githubUrl}
+                    </span>
+                  </span>
+                )}
+                {proj.url && (
+                  <span className="flex items-center gap-1 font-mono text-sky-600">
+                    <Globe className="w-3 h-3 text-sky-600" />
+                    <span
+                      contentEditable
+                      suppressContentEditableWarning
+                      onBlur={(e) => updateProjectItem(proj.id, 'url', e.currentTarget.textContent || '')}
+                      className={editableClass}
+                    >
+                      {proj.url}
+                    </span>
+                  </span>
+                )}
               </div>
 
               <p
                 contentEditable
                 suppressContentEditableWarning
-                onBlur={(e) => updateProjectItem(proj.id, 'description', e.currentTarget.textContent || '')}
-                className={`text-[10.5px] text-slate-700 leading-relaxed ${editableClass}`}
+                onBlur={(e) => updateProjectItem(proj.id, 'description', e.currentTarget.innerText || '')}
+                className={`text-[10.5px] text-slate-700 leading-relaxed whitespace-pre-line ${editableClass}`}
               >
                 {proj.description}
               </p>
+
+              {proj.technologies && proj.technologies.length > 0 && (
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {proj.technologies.map((tech, tIdx) => (
+                    <span
+                      key={tIdx}
+                      contentEditable
+                      suppressContentEditableWarning
+                      onBlur={(e) => updateSingleProjectTech(proj.id, tIdx, e.currentTarget.textContent || '')}
+                      className={`text-[9.5px] px-1.5 py-0.5 rounded bg-sky-50 text-sky-800 font-medium border border-sky-100 ${editableClass}`}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -24,36 +24,20 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  
-  // AI Settings State
-  const [useAI, setUseAI] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Clear legacy localStorage key on mount so only .env is used
   useEffect(() => {
-    const savedKey = localStorage.getItem('gemini_api_key');
-    if (savedKey) {
-      setApiKey(savedKey);
-      setUseAI(true);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('gemini_api_key');
     }
   }, []);
 
-  if (!isOpen) return null;
+  const envApiKey = (process.env.NEXT_PUBLIC_GEMINI_API_KEY || '').trim();
+  const hasApiKey = Boolean(envApiKey);
 
-  const handleSaveApiKey = (key: string) => {
-    const trimmed = key.trim();
-    setApiKey(trimmed);
-    if (trimmed) {
-      localStorage.setItem('gemini_api_key', trimmed);
-      setUseAI(true);
-      setShowApiKeyInput(false);
-    } else {
-      localStorage.removeItem('gemini_api_key');
-      setUseAI(false);
-    }
-  };
+  if (!isOpen) return null;
 
   const validateAndProcessFile = async (file: File) => {
     setErrorMessage(null);
@@ -66,14 +50,24 @@ export const UploadModal: React.FC<UploadModalProps> = ({
       setProgress(40);
       const parsedDoc = await documentExtractor.extractText(file);
 
-      // Step 2: Resume parsing (AI if key exists, otherwise Local Rule-Based)
+      // Step 2: Resume parsing (AI if NEXT_PUBLIC_GEMINI_API_KEY exists in .env, otherwise Rule-Based)
       setProgress(75);
       let result: ParseResult;
 
-      if (useAI && apiKey.trim()) {
-        const geminiParser = new GeminiResumeParser(apiKey.trim());
+      if (hasApiKey) {
+        console.log(
+          '%c[CV Extractor]%c 🤖 Using AI Parser',
+          'color: #0284c7; font-weight: bold;',
+          'color: #38bdf8;'
+        );
+        const geminiParser = new GeminiResumeParser(envApiKey);
         result = await geminiParser.parse(parsedDoc);
       } else {
+        console.log(
+          '%c[CV Extractor]%c ⚙️ Using Local Offline Rule-Based Parser (No API Key in .env)',
+          'color: #f59e0b; font-weight: bold;',
+          'color: #fbbf24;'
+        );
         result = await ruleBasedResumeParser.parse(parsedDoc);
       }
 
@@ -144,67 +138,6 @@ export const UploadModal: React.FC<UploadModalProps> = ({
           </p>
         </div>
 
-        {/* OPTIONAL AI ENHANCEMENT BANNER */}
-        <div className="mb-5 p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Sparkles className={`w-4 h-4 ${apiKey ? 'text-amber-400' : 'text-slate-400'}`} />
-              <div>
-                <span className="text-xs font-bold text-white">
-                  {apiKey ? 'Gemini AI Extraction Enabled' : 'Use Free Gemini AI (Optional)'}
-                </span>
-                <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-semibold">
-                  100% Free
-                </span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setShowApiKeyInput(!showApiKeyInput)}
-              className="text-xs font-semibold text-sky-400 hover:underline flex items-center gap-1"
-            >
-              <Key className="w-3.5 h-3.5" />
-              <span>{apiKey ? 'Change Key' : 'Add Free API Key'}</span>
-            </button>
-          </div>
-
-          {showApiKeyInput && (
-            <div className="mt-3 pt-3 border-t border-slate-700 space-y-2">
-              <div className="flex items-start gap-1.5 text-[11px] text-slate-300">
-                <Info className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
-                <span>
-                  How to get your free key: Go to{' '}
-                  <a
-                    href="https://aistudio.google.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sky-400 underline font-semibold"
-                  >
-                    aistudio.google.com
-                  </a>
-                  , sign in with your Gmail, click &quot;Create API Key&quot;, and paste it below:
-                </span>
-              </div>
-
-              <div className="flex gap-2 pt-1">
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="Paste AIzaSy... key here"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
-                />
-                <button
-                  onClick={() => handleSaveApiKey(apiKey)}
-                  className="px-4 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
         {/* DRAG AND DROP ZONE */}
         <div
           onDragEnter={handleDrag}
@@ -258,13 +191,22 @@ export const UploadModal: React.FC<UploadModalProps> = ({
           )}
         </AnimatePresence>
 
-        {/* PROGRESS INDICATOR */}
+        {/* PROGRESS INDICATOR WITH ACTIVE EXTRACTION MODE */}
         {isProcessing && (
           <div className="mt-4 p-4 rounded-xl bg-slate-800/80 border border-slate-700">
             <div className="flex items-center justify-between text-xs text-slate-300 mb-2">
               <span className="flex items-center gap-2 font-medium">
                 <Loader2 className="w-3.5 h-3.5 text-sky-400 animate-spin" />
-                {useAI && apiKey ? 'Extracting with Gemini AI...' : 'Extracting CV structure...'}
+                {hasApiKey ? (
+                  <span className="flex items-center gap-1.5 text-sky-300">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    Extracting with <strong className="text-white font-bold">AI Engine</strong>...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1.5 text-slate-300">
+                    Extracting with <strong className="text-amber-400 font-bold">Local Offline Parser</strong>...
+                  </span>
+                )}
               </span>
               <span className="font-mono text-sky-400">{progress}%</span>
             </div>
