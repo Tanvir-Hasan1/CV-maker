@@ -47,7 +47,7 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
 
       <div className="space-y-4">
         {projects.map((proj, idx) => (
-          <div key={proj.id} className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div key={proj.id} className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-4 space-y-3">
             <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-900">
               <span className="font-mono text-slate-500">#{idx + 1} {proj.name}</span>
               <button

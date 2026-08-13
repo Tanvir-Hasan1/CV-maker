@@ -35,7 +35,7 @@ export const EducationForm: React.FC<EducationFormProps> = ({ educations, onChan
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 flex-1 flex flex-col min-h-full bg-slate-900">
       <div className="flex items-center justify-between pb-2 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <GraduationCap className="w-4 h-4 text-amber-400" />
@@ -51,7 +51,7 @@ export const EducationForm: React.FC<EducationFormProps> = ({ educations, onChan
 
       <div className="space-y-4">
         {educations.map((edu, idx) => (
-          <div key={edu.id} className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div key={edu.id} className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-4 space-y-3">
             <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-900">
               <span className="font-mono text-slate-500">#{idx + 1} {edu.degree}</span>
               <button

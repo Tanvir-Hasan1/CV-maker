@@ -76,7 +76,7 @@ export const SkillsForm: React.FC<SkillsFormProps> = ({ skillCategories, onChang
           const inputValue = rawTexts[cat.id] !== undefined ? rawTexts[cat.id] : cat.skills.join(', ');
 
           return (
-            <div key={cat.id} className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+            <div key={cat.id} className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-4 space-y-3">
               <div className="flex items-center justify-between gap-3">
                 <input
                   type="text"

@@ -70,7 +70,7 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onC
         {experiences.map((exp, idx) => (
           <div
             key={exp.id}
-            className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3 relative group"
+            className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-4 space-y-3 relative group"
           >
             {/* ITEM ACTIONS HEADER */}
             <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-900">

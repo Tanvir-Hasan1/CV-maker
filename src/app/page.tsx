@@ -20,7 +20,7 @@ import { TemplateId } from '../types/settings';
 import { TEMPLATE_REGISTRY } from '../components/templates/TemplateRegistry';
 
 import {
-  Sparkles, Shield, ArrowRight, CheckCircle2
+  Sparkles, Shield, ArrowRight, CheckCircle2, FileText, Eye, Layers
 } from 'lucide-react';
 
 export default function Home() {
@@ -50,6 +50,7 @@ export default function Home() {
   const [leftSidebarWidth, setLeftSidebarWidth] = useState(240); // px
   const [rightPanelWidth, setRightPanelWidth] = useState(420); // px
   const [isLeftCollapsed, setIsLeftCollapsed] = useState(false);
+  const [mobileTab, setMobileTab] = useState<'edit' | 'preview' | 'sections'>('edit');
 
   const [isResizingLeft, setIsResizingLeft] = useState(false);
   const [isResizingRight, setIsResizingRight] = useState(false);
@@ -449,8 +450,90 @@ export default function Home() {
             onOpenReorderModal={() => setShowReorderModal(true)}
           />
 
-          {/* MAIN 3-COLUMN LAYOUT */}
-          <div className="flex-1 flex overflow-hidden relative">
+          {/* MOBILE VIEW (< md) CONTAINER */}
+          <div className="flex-1 flex flex-col md:hidden overflow-hidden relative pb-16">
+            {mobileTab === 'edit' && (
+              <div className="flex-1 overflow-y-auto pb-4 bg-slate-900">
+                <RightFormPanel
+                  activeTab={activeTab}
+                  activeDocument={activeDocument}
+                  updateActiveDocument={updateActiveDocument}
+                  width={rightPanelWidth}
+                />
+              </div>
+            )}
+
+            {mobileTab === 'preview' && (
+              <div className="flex-1 relative flex flex-col min-w-0 overflow-hidden pb-4">
+                <A4PreviewPane
+                  data={activeDocument.data}
+                  settings={activeDocument.settings}
+                  zoom={zoom}
+                  onUpdateData={(updatedData) =>
+                    updateActiveDocument({
+                      ...activeDocument,
+                      data: updatedData,
+                    })
+                  }
+                  onSelectSection={(secKey) => {
+                    setActiveTab(secKey);
+                    setMobileTab('edit');
+                  }}
+                />
+              </div>
+            )}
+
+            {mobileTab === 'sections' && (
+              <div className="flex-1 bg-slate-900 overflow-y-auto p-2 pb-4">
+                <SidebarNav
+                  activeTab={activeTab}
+                  onSelectTab={(tab) => {
+                    setActiveTab(tab);
+                    setMobileTab('edit');
+                  }}
+                  sectionOrder={activeDocument.settings.sectionOrder}
+                  hiddenSections={activeDocument.settings.hiddenSections}
+                  onOpenReorderModal={() => setShowReorderModal(true)}
+                  isCollapsed={false}
+                  onToggleCollapse={() => {}}
+                />
+              </div>
+            )}
+
+            {/* FIXED ALWAYS-VISIBLE MOBILE BOTTOM NAVIGATION BAR */}
+            <div className="fixed bottom-0 left-0 right-0 h-16 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 p-2 z-[100] flex items-center justify-around select-none">
+              <button
+                onClick={() => setMobileTab('edit')}
+                className={`flex flex-col items-center gap-1 py-1 px-4 rounded-xl text-xs font-semibold transition-colors ${
+                  mobileTab === 'edit' ? 'text-sky-400 bg-sky-500/10' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <FileText className="w-4 h-4" />
+                <span>Edit Form</span>
+              </button>
+              <button
+                onClick={() => setMobileTab('preview')}
+                className={`flex flex-col items-center gap-1 py-1 px-4 rounded-xl text-xs font-semibold transition-colors ${
+                  mobileTab === 'preview' ? 'text-sky-400 bg-sky-500/10' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Eye className="w-4 h-4" />
+                <span>Live Preview</span>
+              </button>
+              <button
+                onClick={() => setMobileTab('sections')}
+                className={`flex flex-col items-center gap-1 py-1 px-4 rounded-xl text-xs font-semibold transition-colors ${
+                  mobileTab === 'sections' ? 'text-sky-400 bg-sky-500/10' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Layers className="w-4 h-4" />
+                <span>Sections</span>
+              </button>
+            </div>
+          </div>
+
+          {/* DESKTOP 3-COLUMN LAYOUT (>= md) */}
+          <div className="hidden md:flex flex-1 overflow-hidden relative">
             {/* COLUMN 1: MINIMIZABLE & RESIZABLE LEFT SIDEBAR */}
             <div
               style={{ width: isLeftCollapsed ? '60px' : `${leftSidebarWidth}px` }}
@@ -505,12 +588,17 @@ export default function Home() {
             </div>
 
             {/* COLUMN 3: RIGHT FORM EDIT PANEL */}
-            <RightFormPanel
-              activeTab={activeTab}
-              activeDocument={activeDocument}
-              updateActiveDocument={updateActiveDocument}
-              width={rightPanelWidth}
-            />
+            <div
+              style={{ width: `${rightPanelWidth}px` }}
+              className={`shrink-0 flex flex-col h-full bg-slate-900 border-l border-slate-800 overflow-hidden ${isResizingRight ? 'transition-none' : 'transition-[width] duration-200 ease-out'}`}
+            >
+              <RightFormPanel
+                activeTab={activeTab}
+                activeDocument={activeDocument}
+                updateActiveDocument={updateActiveDocument}
+                width={rightPanelWidth}
+              />
+            </div>
           </div>
         </div>
       )}

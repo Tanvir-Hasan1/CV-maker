@@ -18,7 +18,20 @@ const db = new CVMakerDatabase();
 
 export class LocalCVStorage implements CVStorage {
   async getAll(): Promise<CVDocument[]> {
-    const list = await db.cvs.orderBy('updatedAt').reverse().toArray();
+    let list = await db.cvs.orderBy('updatedAt').reverse().toArray();
+
+    // Check for and remove legacy personal sample record if present
+    const legacySample = list.find((doc) => doc.id === 'sample-tanvir-hasan');
+    if (legacySample) {
+      await db.cvs.delete('sample-tanvir-hasan');
+      list = list.filter((doc) => doc.id !== 'sample-tanvir-hasan');
+      // Replace with new generic sample
+      if (!list.find((doc) => doc.id === SAMPLE_CV.id)) {
+        await db.cvs.add(SAMPLE_CV);
+        list.unshift(SAMPLE_CV);
+      }
+    }
+
     if (list.length === 0) {
       // Seed initial sample CV on first launch
       await db.cvs.add(SAMPLE_CV);

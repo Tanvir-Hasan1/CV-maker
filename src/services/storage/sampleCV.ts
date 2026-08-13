@@ -1,7 +1,7 @@
 import { CVDocument } from '../../types/storage';
 
 export const SAMPLE_CV: CVDocument = {
-  id: 'sample-tanvir-hasan',
+  id: 'sample-resume',
   title: 'Software Developer Resume',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
@@ -26,131 +26,114 @@ export const SAMPLE_CV: CVDocument = {
   },
   data: {
     personalInfo: {
-      fullName: 'TANVIR HASAN',
-      professionalTitle: 'Computer Science & Engineering Graduate',
-      email: 'thasan762@gmail.com',
-      phone: '01521584563',
-      location: 'Dhaka, Bangladesh',
-      linkedin: 'www.linkedin.com/in/Tanvir-Hasan1',
-      github: 'www.github.com/Tanvir-Hasan1',
+      fullName: 'ALEX MORGAN',
+      professionalTitle: 'Full-Stack Software Engineer',
+      email: 'alex.morgan@example.com',
+      phone: '+1 (555) 019-2834',
+      location: 'San Francisco, CA',
+      linkedin: 'linkedin.com/in/alexmorgan',
+      github: 'github.com/alexmorgan',
+      website: 'alexmorgan.dev',
     },
     summary:
-      'Recent Computer Science graduate with strong foundation in data structures, algorithms, and programming fundamentals seeking a challenging position as a Software Developer in a good tech environment where I can utilize my problem-solving skills and technical knowledge to contribute to innovative projects while continuing to grow professionally.',
+      'Innovative Full-Stack Software Engineer with 4+ years of experience designing scalable web and mobile applications. Skilled in React, Node.js, TypeScript, and cloud services, with a proven track record of optimizing application performance and delivering modern user interfaces.',
     education: [
       {
         id: 'edu-1',
-        degree: 'Bachelor of Science in Computer Science & Engineering',
-        institution: 'United International University (UIU)',
-        location: 'Dhaka',
-        startDate: 'October 2020',
-        endDate: '2025',
-        gpa: '3.77/4.00',
+        degree: 'Bachelor of Science in Computer Science',
+        institution: 'University of California, Berkeley',
+        location: 'Berkeley, CA',
+        startDate: 'September 2019',
+        endDate: 'May 2023',
+        gpa: '3.85/4.00',
         relevantCoursework: [
           'Data Structures & Algorithms',
-          'Software Engineering',
+          'Distributed Systems',
           'Database Management Systems',
-          'Web Technologies',
-          'Object-Oriented Programming',
-          'Computer Networks'
+          'Web Architecture',
+          'Software Engineering'
         ]
       }
     ],
     experience: [
       {
         id: 'exp-1',
-        jobTitle: 'Undergraduate Teaching Assistant (UGA)',
-        company: 'United International University, Department of CSE',
-        startDate: 'September 2023',
-        endDate: '2025',
-        isCurrent: false,
+        jobTitle: 'Software Engineer',
+        company: 'Apex Tech Solutions',
+        startDate: 'June 2023',
+        endDate: 'Present',
+        isCurrent: true,
         description:
-          '• Assist faculty members in conducting lab sessions for programming courses\n• Help students debug code and understand programming concepts\n• Grade assignments and provide constructive feedback to students\n• Support junior students in Computer Science fundamentals and problem-solving'
+          '• Architected responsive web dashboards using React.js and TypeScript, increasing user engagement by 35%\n• Built RESTful microservices with Node.js and MongoDB, handling over 100K daily active requests\n• Mentored junior engineers and led weekly code review sessions to enforce high code quality standards'
       }
     ],
     skillCategories: [
       {
         id: 'sc-1',
         categoryName: 'Programming Languages',
-        skills: ['JavaScript', 'Java', 'C/C++', 'Python']
+        skills: ['TypeScript', 'JavaScript', 'Python', 'Java', 'SQL']
       },
       {
         id: 'sc-2',
         categoryName: 'Frontend Technologies',
-        skills: ['React.js', 'React Native', 'HTML5', 'CSS3', 'JavaScript ES6+']
+        skills: ['React.js', 'Next.js', 'Tailwind CSS', 'HTML5/CSS3', 'Redux Toolkit']
       },
       {
         id: 'sc-3',
         categoryName: 'Backend Technologies',
-        skills: ['Node.js', 'Express.js', 'REST APIs']
+        skills: ['Node.js', 'Express.js', 'GraphQL', 'REST APIs']
       },
       {
         id: 'sc-4',
-        categoryName: 'Databases',
-        skills: ['MongoDB', 'MySQL']
+        categoryName: 'Databases & Cloud',
+        skills: ['MongoDB', 'PostgreSQL', 'Redis', 'AWS', 'Docker']
       },
       {
         id: 'sc-5',
-        categoryName: 'Tools & Technologies',
-        skills: ['Git/GitHub', 'VS Code', 'Postman', 'npm/yarn', 'Figma']
-      },
-      {
-        id: 'sc-6',
-        categoryName: 'Concepts',
-        skills: ['Data Structures', 'Algorithms', 'OOP', 'SDLC']
+        categoryName: 'Tools & Workflows',
+        skills: ['Git/GitHub', 'CI/CD Pipelines', 'VS Code', 'Postman', 'Figma']
       }
     ],
     skills: [],
     projects: [
       {
         id: 'proj-1',
-        name: 'AutoPulse - Vehicle Management Mobile Application',
-        subtitle: 'React Native / Expo Mobile Application',
+        name: 'CloudPulse - Infrastructure Monitoring Platform',
+        subtitle: 'Full-Stack Web Application',
         description:
-          'Developed a comprehensive vehicle management application using React Native and Expo framework. Implemented secure user authentication, vehicle documentation management system, marketplace for vehicle parts, and real-time fuel consumption tracking.',
-        technologies: ['React Native', 'Expo', 'Context API', 'JWT Authentication', 'REST APIs'],
-        githubUrl: 'www.github.com/Tanvir-Hasan1/AutoPulse'
+          'Built a real-time cloud resource monitoring dashboard with live WebSocket telemetry, alert notification triggers, and automated system health reporting.',
+        technologies: ['React.js', 'Node.js', 'WebSockets', 'Tailwind CSS', 'Docker'],
+        githubUrl: 'github.com/alexmorgan/cloudpulse',
+        url: 'cloudpulse-demo.example.com'
       },
       {
         id: 'proj-2',
-        name: 'CampusCycle - Campus Management System',
-        subtitle: 'MERN Stack Web Application',
+        name: 'DevFlow - Mobile Developer Community App',
+        subtitle: 'React Native Cross-Platform App',
         description:
-          'Built a comprehensive campus management system with features for student registration, course management, academic tracking, and administrative functions. Implemented responsive design with modern web technologies.',
-        technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
-        githubUrl: 'www.github.com/Tanvir-Hasan1/campus_cycle'
-      },
-      {
-        id: 'proj-3',
-        name: 'RongMistry - AI-Powered Color Overlap Detection & Correction Robot',
-        subtitle: 'Deep Learning & Robotics Project',
-        description:
-          'Developed an innovative smart robot using YOLOv3 deep learning technology for automated color overlap detection and correction on flat surfaces. Created custom dataset and integrated hardware components including gear motors, servo motors, pumps, and ESP32 camera.',
-        technologies: ['YOLOv3', 'Deep Learning', 'Computer Vision', 'ESP32', 'Custom Dataset'],
-        url: 'www.youtube.com/watch?v=SodRiUS-Wwg'
+          'Developed a mobile platform for software developers to share snippets, solve code challenges, and track tech industry trends with offline storage support.',
+        technologies: ['React Native', 'Expo', 'GraphQL', 'AsyncStorage'],
+        githubUrl: 'github.com/alexmorgan/devflow'
       }
     ],
     achievements: [
       {
         id: 'ach-1',
-        title: 'Maintained CGPA of 3.77 throughout undergraduate studies'
+        title: 'Awarded First Place at Bay Area Hackathon 2024 for AI Code Reviewer tool'
       },
       {
         id: 'ach-2',
-        title: 'Selected as Undergraduate Teaching Assistant based on academic performance'
-      },
-      {
-        id: 'ach-3',
-        title: 'Successfully tutored 20+ students in programming and mathematics'
+        title: 'Graduated Magna Cum Laude with a 3.85 CGPA in Computer Science'
       }
     ],
     languages: [
-      { id: 'lang-1', language: 'Bengali', proficiency: 'Native' },
-      { id: 'lang-2', language: 'English', proficiency: 'Fluent' }
+      { id: 'lang-1', language: 'English', proficiency: 'Native' },
+      { id: 'lang-2', language: 'Spanish', proficiency: 'Intermediate' }
     ],
     interests: [
-      { id: 'int-1', name: 'AI Integrated Applications' },
-      { id: 'int-2', name: 'Exploring New Technologies' },
-      { id: 'int-3', name: 'Large Language Models (LLM)' }
+      { id: 'int-1', name: 'Open Source Contribution' },
+      { id: 'int-2', name: 'Cloud Architecture & DevOps' },
+      { id: 'int-3', name: 'UI/UX Interaction Design' }
     ],
     certifications: [],
     volunteerExperience: [],

@@ -18,7 +18,7 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 flex-1 flex flex-col bg-slate-900">
       <div className="flex items-center gap-2 pb-2 border-b border-slate-800">
         <User className="w-4 h-4 text-sky-400" />
         <h3 className="text-sm font-bold text-white uppercase tracking-wider">Personal Information</h3>
@@ -31,8 +31,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.fullName || ''}
             onChange={(e) => handleChange('fullName', e.target.value)}
-            placeholder="e.g. Tanvir Hasan"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="e.g. Alex Morgan"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -42,8 +42,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.professionalTitle || ''}
             onChange={(e) => handleChange('professionalTitle', e.target.value)}
-            placeholder="e.g. Computer Science Graduate"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="e.g. Software Engineer"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -55,8 +55,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="email"
             value={data.email || ''}
             onChange={(e) => handleChange('email', e.target.value)}
-            placeholder="thasan762@gmail.com"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="alex.morgan@example.com"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -68,8 +68,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.phone || ''}
             onChange={(e) => handleChange('phone', e.target.value)}
-            placeholder="01521584563"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="+1 (555) 019-2834"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -81,8 +81,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.location || ''}
             onChange={(e) => handleChange('location', e.target.value)}
-            placeholder="Dhaka, Bangladesh"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="San Francisco, CA"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -94,8 +94,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.linkedin || ''}
             onChange={(e) => handleChange('linkedin', e.target.value)}
-            placeholder="linkedin.com/in/Tanvir-Hasan1"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="linkedin.com/in/alexmorgan"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -107,8 +107,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.github || ''}
             onChange={(e) => handleChange('github', e.target.value)}
-            placeholder="github.com/Tanvir-Hasan1"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="github.com/alexmorgan"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
 
@@ -120,8 +120,8 @@ export const PersonalForm: React.FC<PersonalFormProps> = ({ data, onChange }) =>
             type="text"
             value={data.website || ''}
             onChange={(e) => handleChange('website', e.target.value)}
-            placeholder="tanvirhasan.dev"
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
+            placeholder="alexmorgan.dev"
+            className="w-full bg-slate-950/80 border border-slate-700/60 rounded-xl px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-sky-500"
           />
         </div>
       </div>

@@ -25,8 +25,7 @@ export const RightFormPanel: React.FC<RightFormPanelProps> = ({
 }) => {
   return (
     <div
-      style={{ width: `${width}px` }}
-      className="bg-slate-900 border-l border-slate-800 p-6 overflow-y-auto shrink-0 select-none relative"
+      className="w-full h-full min-h-full flex-1 bg-slate-900 p-4 sm:p-6 overflow-y-auto shrink-0 select-none relative flex flex-col"
     >
       {activeTab === 'personalInfo' && (
         <PersonalForm
