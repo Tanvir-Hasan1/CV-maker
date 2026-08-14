@@ -143,7 +143,7 @@ export const A4PreviewPane: React.FC<A4PreviewPaneProps> = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="flex-1 bg-slate-950 overflow-y-auto p-3 sm:p-8 flex items-start justify-center min-h-[calc(100vh-4rem)] relative select-none touch-pan-y"
+      className="flex-1 bg-slate-200/80 dark:bg-slate-950 overflow-y-auto p-3 sm:p-8 flex items-start justify-center min-h-[calc(100vh-4rem)] relative select-none touch-pan-y transition-colors"
     >
 
       {/* DOCUMENT CANVAS CONTAINER WITH TRANSFORM SCALE & PAN */}
@@ -157,7 +157,7 @@ export const A4PreviewPane: React.FC<A4PreviewPaneProps> = ({
         {/* A4 DOCUMENT CANVAS TARGET FOR PDF EXPORT */}
         <div
           id="a4-cv-preview"
-          className="a4-page bg-white rounded-sm overflow-hidden text-slate-900"
+          className="a4-page bg-white rounded-sm overflow-hidden text-slate-900 shadow-xl"
           style={{
             width: '210mm',
             minHeight: '297mm',
@@ -175,3 +175,4 @@ export const A4PreviewPane: React.FC<A4PreviewPaneProps> = ({
     </div>
   );
 };
+

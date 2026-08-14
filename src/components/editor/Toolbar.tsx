@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   FileText, Save, Download, Printer, Undo2, Redo2, ZoomIn, ZoomOut, 
-  Palette, Layers, Sparkles, CheckCircle2, ChevronDown, ArrowLeft, Edit3, Check, Menu, X, SlidersHorizontal
+  Palette, Layers, Sparkles, CheckCircle2, ChevronDown, ArrowLeft, Edit3, Check, Menu, X, SlidersHorizontal, Sun, Moon
 } from 'lucide-react';
 import { TemplateId } from '../../types/settings';
 import { TEMPLATE_REGISTRY } from '../templates/TemplateRegistry';
@@ -27,6 +27,8 @@ interface ToolbarProps {
   onNativePrint: () => void;
   onOpenDashboard: () => void;
   onOpenReorderModal: () => void;
+  theme?: 'dark' | 'light';
+  onToggleTheme?: () => void;
 }
 
 const PRESET_COLORS = [
@@ -57,6 +59,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onNativePrint,
   onOpenDashboard,
   onOpenReorderModal,
+  theme = 'dark',
+  onToggleTheme,
 }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -105,20 +109,20 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     <>
       <header
         ref={navRef}
-        className="h-16 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-6 flex items-center justify-between gap-3 sticky top-0 z-[60] select-none font-sans"
+        className="h-16 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-3 sm:px-6 flex items-center justify-between gap-3 sticky top-0 z-[60] select-none font-sans transition-colors"
       >
         {/* GROUP 1: DASHBOARD BACK & DOCUMENT TITLE */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             onClick={onOpenDashboard}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 text-xs font-semibold shrink-0 group"
+            className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 text-xs font-semibold shrink-0 group"
             title="Return to My CVs Dashboard"
           >
-            <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:-translate-x-0.5 transition-transform shrink-0" />
+            <ArrowLeft className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:-translate-x-0.5 transition-transform shrink-0" />
             <span className="hidden sm:inline">My CVs</span>
           </button>
 
-          <div className="h-5 w-[1px] bg-slate-800 shrink-0" />
+          <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-800 shrink-0" />
 
           {/* Editable Title */}
           <div className="flex items-center gap-2 shrink-0">
@@ -131,7 +135,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   onBlur={() => setIsEditingTitle(false)}
                   onKeyDown={(e) => e.key === 'Enter' && setIsEditingTitle(false)}
                   autoFocus
-                  className="bg-slate-800 border border-sky-500 rounded-lg px-2.5 py-1 text-xs font-bold text-white focus:outline-none w-32 sm:w-52"
+                  className="bg-slate-100 dark:bg-slate-800 border border-sky-500 rounded-lg px-2.5 py-1 text-xs font-bold text-slate-900 dark:text-white focus:outline-none w-32 sm:w-52"
                 />
                 <button
                   onClick={() => setIsEditingTitle(false)}
@@ -143,25 +147,25 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             ) : (
               <button
                 onClick={() => setIsEditingTitle(true)}
-                className="text-xs font-bold text-white hover:text-sky-400 transition-colors flex items-center gap-1.5 max-w-[120px] sm:max-w-[200px] md:max-w-[280px] group truncate shrink-0"
+                className="text-xs font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5 max-w-[120px] sm:max-w-[200px] md:max-w-[280px] group truncate shrink-0"
                 title="Click to rename document"
               >
                 <span className="truncate">{title || 'Untitled CV'}</span>
-                <Edit3 className="w-3 h-3 text-slate-500 group-hover:text-sky-400 shrink-0" />
+                <Edit3 className="w-3 h-3 text-slate-400 dark:text-slate-500 group-hover:text-sky-500 shrink-0" />
               </button>
             )}
 
             {/* Status Badge */}
-            <div className="hidden xl:flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 shrink-0">
+            <div className="hidden xl:flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 text-slate-600 dark:text-slate-400 shrink-0">
               {saveStatus === 'saving' ? (
                 <>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-                  <span className="text-amber-300">Saving...</span>
+                  <span className="text-amber-600 dark:text-amber-300">Saving...</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                  <span className="text-slate-300">Saved</span>
+                  <CheckCircle2 className="w-3 h-3 text-emerald-500 dark:text-emerald-400" />
+                  <span className="text-slate-700 dark:text-slate-300">Saved</span>
                 </>
               )}
             </div>
@@ -177,19 +181,19 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 setShowTemplateMenu(!showTemplateMenu);
                 setShowColorPicker(false);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700/80 hover:border-slate-600 text-xs font-semibold text-slate-200 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all"
               title="Switch Template Design"
             >
-              <Sparkles className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <Sparkles className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 shrink-0" />
               <span className="max-w-[120px] truncate">{currentTemplate.name}</span>
               <ChevronDown className={`w-3 h-3 text-slate-400 shrink-0 transition-transform duration-200 ${showTemplateMenu ? 'rotate-180' : ''}`} />
             </button>
 
             {showTemplateMenu && (
-              <div className="absolute top-full mt-2 left-0 w-72 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-2 z-[100] space-y-1 animate-in fade-in zoom-in-95 duration-100">
-                <div className="px-2 py-1 border-b border-slate-800 flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Choose Template</span>
-                  <span className="text-[10px] text-sky-400 font-mono">{Object.keys(TEMPLATE_REGISTRY).length} Designs</span>
+              <div className="absolute top-full mt-2 left-0 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-2 z-[100] space-y-1 animate-in fade-in zoom-in-95 duration-100">
+                <div className="px-2 py-1 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Choose Template</span>
+                  <span className="text-[10px] text-sky-600 dark:text-sky-400 font-mono">{Object.keys(TEMPLATE_REGISTRY).length} Designs</span>
                 </div>
                 <div className="max-h-80 overflow-y-auto space-y-1 pr-1">
                   {Object.values(TEMPLATE_REGISTRY).map((tmpl) => (
@@ -200,14 +204,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                         setShowTemplateMenu(false);
                       }}
                       className={`w-full text-left p-2.5 rounded-xl transition-all ${
-                        currentTemplateId === tmpl.id ? 'bg-sky-500/20 border border-sky-500/40 text-sky-300 font-semibold' : 'text-slate-300 hover:bg-slate-800'
+                        currentTemplateId === tmpl.id ? 'bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-300 font-semibold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-xs">{tmpl.name}</span>
-                        {tmpl.badge && <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-medium">{tmpl.badge}</span>}
+                        {tmpl.badge && <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-600 dark:text-sky-300 font-medium">{tmpl.badge}</span>}
                       </div>
-                      <p className="text-[10px] text-slate-400 line-clamp-1 mt-0.5 font-normal">{tmpl.description}</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 font-normal">{tmpl.description}</p>
                     </button>
                   ))}
                 </div>
@@ -222,16 +226,16 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 setShowColorPicker(!showColorPicker);
                 setShowTemplateMenu(false);
               }}
-              className="px-2.5 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700/80 hover:border-slate-600 flex items-center gap-1.5 text-xs text-slate-300 transition-all"
+              className="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 flex items-center gap-1.5 text-xs text-slate-700 dark:text-slate-300 transition-all"
               title="Change Accent Color Theme"
             >
-              <span className="w-3.5 h-3.5 rounded-full shadow-sm ring-1 ring-white/20" style={{ backgroundColor: accentColor }} />
+              <span className="w-3.5 h-3.5 rounded-full shadow-sm ring-1 ring-black/10 dark:ring-white/20" style={{ backgroundColor: accentColor }} />
               <Palette className="w-3.5 h-3.5 text-slate-400" />
             </button>
 
             {showColorPicker && (
-              <div className="absolute top-full mt-2 left-0 p-3 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl z-[100] w-56 animate-in fade-in zoom-in-95 duration-100">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Accent Palette</div>
+              <div className="absolute top-full mt-2 left-0 p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[100] w-56 animate-in fade-in zoom-in-95 duration-100">
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Accent Palette</div>
                 <div className="grid grid-cols-7 gap-1.5">
                   {PRESET_COLORS.map((c) => (
                     <button
@@ -241,7 +245,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                         setShowColorPicker(false);
                       }}
                       className={`w-6 h-6 rounded-full transition-all ${
-                        accentColor === c.hex ? 'scale-125 ring-2 ring-white shadow-lg' : 'hover:scale-110 opacity-85 hover:opacity-100'
+                        accentColor === c.hex ? 'scale-125 ring-2 ring-slate-800 dark:ring-white shadow-lg' : 'hover:scale-110 opacity-85 hover:opacity-100'
                       }`}
                       style={{ backgroundColor: c.hex }}
                       title={c.name}
@@ -255,21 +259,32 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           {/* Reorder Sections */}
           <button
             onClick={onOpenReorderModal}
-            className="px-2.5 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700/80 hover:border-slate-600 text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            className="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all flex items-center gap-1.5"
             title="Manage & Reorder CV Sections"
           >
-            <Layers className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Layers className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" />
             <span>Sections</span>
           </button>
 
-          <div className="h-5 w-[1px] bg-slate-800 shrink-0" />
+          {/* Dark / Light Mode Toggle Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 text-amber-500 dark:text-amber-400 transition-all shrink-0"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4 text-sky-500 dark:text-sky-400" />}
+            </button>
+          )}
+
+          <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-800 shrink-0" />
 
           {/* Undo/Redo */}
-          <div className="flex items-center bg-slate-800/90 rounded-xl p-0.5 border border-slate-700/80">
+          <div className="flex items-center bg-slate-100 dark:bg-slate-800/90 rounded-xl p-0.5 border border-slate-200 dark:border-slate-700/80">
             <button
               onClick={onUndo}
               disabled={!canUndo}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 disabled:opacity-25 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700/50 disabled:opacity-25 transition-colors"
               title="Undo (Ctrl+Z)"
             >
               <Undo2 className="w-3.5 h-3.5" />
@@ -277,7 +292,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               onClick={onRedo}
               disabled={!canRedo}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 disabled:opacity-25 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700/50 disabled:opacity-25 transition-colors"
               title="Redo (Ctrl+Y)"
             >
               <Redo2 className="w-3.5 h-3.5" />
@@ -285,18 +300,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           </div>
 
           {/* Zoom Controls */}
-          <div className="flex items-center bg-slate-800/90 rounded-xl p-0.5 border border-slate-700/80 text-xs text-slate-300">
+          <div className="flex items-center bg-slate-100 dark:bg-slate-800/90 rounded-xl p-0.5 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300">
             <button
               onClick={() => onZoomChange(Math.max(0.6, zoom - 0.1))}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700/50 transition-colors"
               title="Zoom Out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
-            <span className="px-2 font-mono text-[11px] font-semibold text-slate-300">{Math.round(zoom * 100)}%</span>
+            <span className="px-2 font-mono text-[11px] font-semibold text-slate-800 dark:text-slate-300">{Math.round(zoom * 100)}%</span>
             <button
               onClick={() => onZoomChange(Math.min(1.4, zoom + 0.1))}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700/50 transition-colors"
               title="Zoom In"
             >
               <ZoomIn className="w-3.5 h-3.5" />
@@ -309,7 +324,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           {/* Print Button (Desktop) */}
           <button
             onClick={onNativePrint}
-            className="hidden lg:flex p-2 rounded-xl bg-slate-800/90 border border-slate-700/80 hover:border-slate-600 text-slate-300 hover:text-white transition-all shrink-0"
+            className="hidden lg:flex p-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all shrink-0"
             title="Print Document"
           >
             <Printer className="w-4 h-4" />
@@ -327,7 +342,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           {/* 3-BAR HAMBURGER ICON BUTTON (ANIMATED 3-BAR MORPH TOGGLE FOR MOBILE/TABLET) */}
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            className="lg:hidden p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80 hover:border-sky-500/60 hover:bg-slate-800 text-sky-400 hover:text-white transition-all duration-300 shadow-md hover:shadow-sky-500/10 active:scale-95 shrink-0 flex items-center justify-center group"
+            className="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-sky-500/60 hover:bg-slate-200 dark:hover:bg-slate-800 text-sky-600 dark:text-sky-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300 shadow-md hover:shadow-sky-500/10 active:scale-95 shrink-0 flex items-center justify-center group"
             title={isDrawerOpen ? "Close Menu" : "Open Options Menu"}
             aria-label="Toggle Options Menu"
           >
@@ -335,17 +350,17 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <div className="w-5 h-4 flex flex-col justify-between items-center transition-all duration-300">
               <span
                 className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-in-out transform origin-center ${
-                  isDrawerOpen ? 'rotate-45 translate-y-[7px] bg-rose-400' : 'bg-sky-400 group-hover:bg-sky-300'
+                  isDrawerOpen ? 'rotate-45 translate-y-[7px] bg-rose-500' : 'bg-sky-500 group-hover:bg-sky-400'
                 }`}
               />
               <span
                 className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-in-out ${
-                  isDrawerOpen ? 'opacity-0 scale-x-0 bg-rose-400' : 'bg-sky-400 opacity-100 group-hover:bg-sky-300'
+                  isDrawerOpen ? 'opacity-0 scale-x-0 bg-rose-500' : 'bg-sky-500 opacity-100 group-hover:bg-sky-400'
                 }`}
               />
               <span
                 className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-in-out transform origin-center ${
-                  isDrawerOpen ? '-rotate-45 -translate-y-[7px] bg-rose-400' : 'bg-sky-400 group-hover:bg-sky-300'
+                  isDrawerOpen ? '-rotate-45 -translate-y-[7px] bg-rose-500' : 'bg-sky-500 group-hover:bg-sky-400'
                 }`}
               />
             </div>
@@ -359,20 +374,20 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           {/* Backdrop */}
           <div
             onClick={() => setIsDrawerOpen(false)}
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[99] animate-in fade-in duration-200"
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[99] animate-in fade-in duration-200"
           />
 
           {/* Slide-out Drawer */}
-          <aside className="fixed inset-y-0 right-0 w-80 sm:w-96 bg-slate-900 border-l border-slate-800 shadow-2xl z-[100] flex flex-col p-5 overflow-y-auto animate-in slide-in-from-right duration-300 font-sans">
+          <aside className="fixed inset-y-0 right-0 w-80 sm:w-96 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[100] flex flex-col p-5 overflow-y-auto animate-in slide-in-from-right duration-300 font-sans text-slate-900 dark:text-white">
             {/* Drawer Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-sky-400" />
-                <h2 className="text-sm font-bold text-white uppercase tracking-wider">Design & Options</h2>
+                <SlidersHorizontal className="w-4 h-4 text-sky-500 dark:text-sky-400" />
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Design & Options</h2>
               </div>
               <button
                 onClick={() => setIsDrawerOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 title="Close Sidebar"
               >
                 <X className="w-5 h-5" />
@@ -380,11 +395,34 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             </div>
 
             <div className="py-5 space-y-6 flex-1">
+              {/* THEME MODE TOGGLE IN DRAWER */}
+              {onToggleTheme && (
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Theme Mode</span>
+                  <button
+                    onClick={onToggleTheme}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-all"
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <Sun className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                        <span>Light Mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="w-4 h-4 text-sky-500 dark:text-sky-400" />
+                        <span>Dark Mode</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
               {/* SECTION 1: TEMPLATE SELECTOR */}
               <div className="space-y-2.5">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center justify-between">
                   <span>Resume Template</span>
-                  <span className="text-[10px] text-sky-400 font-mono font-normal">{Object.keys(TEMPLATE_REGISTRY).length} Ready</span>
+                  <span className="text-[10px] text-sky-600 dark:text-sky-400 font-mono font-normal">{Object.keys(TEMPLATE_REGISTRY).length} Ready</span>
                 </label>
 
                 <div className="grid grid-cols-1 gap-2">
@@ -396,24 +434,24 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                       }}
                       className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between ${
                         currentTemplateId === tmpl.id
-                          ? 'bg-sky-500/15 border-sky-500 text-white ring-1 ring-sky-500'
-                          : 'bg-slate-800/60 border-slate-700/80 text-slate-300 hover:bg-slate-800 hover:border-slate-600'
+                          ? 'bg-sky-500/15 border-sky-500 text-slate-900 dark:text-white ring-1 ring-sky-500'
+                          : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                       }`}
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-bold">{tmpl.name}</span>
                           {tmpl.badge && (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-semibold">
+                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-600 dark:text-sky-300 font-semibold">
                               {tmpl.badge}
                             </span>
                           )}
                         </div>
-                        <p className="text-[10px] text-slate-400 line-clamp-1">{tmpl.description}</p>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1">{tmpl.description}</p>
                       </div>
 
                       {currentTemplateId === tmpl.id && (
-                        <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 ml-2" />
+                        <CheckCircle2 className="w-4 h-4 text-sky-500 dark:text-sky-400 shrink-0 ml-2" />
                       )}
                     </button>
                   ))}
@@ -421,8 +459,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </div>
 
               {/* SECTION 2: ACCENT COLOR THEME */}
-              <div className="space-y-2.5 pt-2 border-t border-slate-800">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Accent Theme Color</label>
+              <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Accent Theme Color</label>
                 <div className="flex flex-wrap gap-2.5">
                   {PRESET_COLORS.map((c) => (
                     <button
@@ -430,7 +468,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                       onClick={() => onSelectAccentColor(c.hex)}
                       className={`w-8 h-8 rounded-full transition-all flex items-center justify-center ${
                         accentColor === c.hex
-                          ? 'ring-2 ring-white scale-110 shadow-lg'
+                          ? 'ring-2 ring-slate-800 dark:ring-white scale-110 shadow-lg'
                           : 'hover:scale-105 opacity-80 hover:opacity-100'
                       }`}
                       style={{ backgroundColor: c.hex }}
@@ -443,17 +481,17 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </div>
 
               {/* SECTION 3: SECTION ORDER & VISIBILITY */}
-              <div className="space-y-2.5 pt-2 border-t border-slate-800">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Layout & Structure</label>
+              <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Layout & Structure</label>
                 <button
                   onClick={() => {
                     setIsDrawerOpen(false);
                     onOpenReorderModal();
                   }}
-                  className="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 hover:border-amber-500/50 hover:bg-slate-800/80 text-white font-semibold text-xs transition-all flex items-center justify-between group"
+                  className="w-full p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-amber-500/50 hover:bg-slate-200 dark:hover:bg-slate-800/80 text-slate-800 dark:text-white font-semibold text-xs transition-all flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-amber-400" />
+                    <Layers className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                     <span>Reorder or Hide Sections</span>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-400 -rotate-90 group-hover:translate-x-0.5 transition-transform" />
@@ -461,26 +499,26 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </div>
 
               {/* SECTION 4: HISTORY & ZOOM */}
-              <div className="space-y-2.5 pt-2 border-t border-slate-800">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">History & Preview Zoom</label>
+              <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">History & Preview Zoom</label>
                 
                 <div className="flex items-center justify-between gap-3">
                   {/* Undo / Redo */}
-                  <div className="flex items-center bg-slate-800 rounded-xl p-1 border border-slate-700 flex-1 justify-around">
+                  <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700 flex-1 justify-around">
                     <button
                       onClick={onUndo}
                       disabled={!canUndo}
-                      className="p-2 rounded-lg text-slate-300 hover:text-white disabled:opacity-30 flex items-center gap-1 text-xs"
+                      className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-30 flex items-center gap-1 text-xs"
                       title="Undo (Ctrl+Z)"
                     >
                       <Undo2 className="w-4 h-4" />
                       <span>Undo</span>
                     </button>
-                    <div className="h-4 w-[1px] bg-slate-700" />
+                    <div className="h-4 w-[1px] bg-slate-300 dark:bg-slate-700" />
                     <button
                       onClick={onRedo}
                       disabled={!canRedo}
-                      className="p-2 rounded-lg text-slate-300 hover:text-white disabled:opacity-30 flex items-center gap-1 text-xs"
+                      className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-30 flex items-center gap-1 text-xs"
                       title="Redo (Ctrl+Y)"
                     >
                       <Redo2 className="w-4 h-4" />
@@ -489,18 +527,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   </div>
 
                   {/* Zoom */}
-                  <div className="flex items-center bg-slate-800 rounded-xl p-1 border border-slate-700 text-xs text-slate-300">
+                  <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
                     <button
                       onClick={() => onZoomChange(Math.max(0.6, zoom - 0.1))}
-                      className="p-2 hover:text-white"
+                      className="p-2 hover:text-slate-900 dark:hover:text-white"
                       title="Zoom Out"
                     >
                       <ZoomOut className="w-4 h-4" />
                     </button>
-                    <span className="px-2 font-mono font-bold text-slate-200">{Math.round(zoom * 100)}%</span>
+                    <span className="px-2 font-mono font-bold text-slate-800 dark:text-slate-200">{Math.round(zoom * 100)}%</span>
                     <button
                       onClick={() => onZoomChange(Math.min(1.4, zoom + 0.1))}
-                      className="p-2 hover:text-white"
+                      className="p-2 hover:text-slate-900 dark:hover:text-white"
                       title="Zoom In"
                     >
                       <ZoomIn className="w-4 h-4" />
@@ -511,12 +549,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             </div>
 
             {/* Drawer Footer Actions */}
-            <div className="pt-4 border-t border-slate-800 space-y-2">
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
               <button
                 onClick={onNativePrint}
-                className="w-full p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs transition-colors flex items-center justify-center gap-2"
+                className="w-full p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-colors flex items-center justify-center gap-2"
               >
-                <Printer className="w-4 h-4 text-slate-400" />
+                <Printer className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <span>Print Resume</span>
               </button>
 
@@ -537,4 +575,6 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     </>
   );
 };
+
+
 

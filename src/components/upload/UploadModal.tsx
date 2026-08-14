@@ -114,7 +114,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md overflow-y-auto"
       onClick={onClose}
     >
       <motion.div
@@ -122,18 +122,18 @@ export const UploadModal: React.FC<UploadModalProps> = ({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative"
+        className="w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative"
       >
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          className="absolute top-6 right-6 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-white">Upload Existing CV</h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Upload Existing CV</h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
             Support formats: PDF, DOCX, TXT. Local offline parsing by default.
           </p>
         </div>
@@ -147,8 +147,8 @@ export const UploadModal: React.FC<UploadModalProps> = ({
           onClick={() => fileInputRef.current?.click()}
           className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all ${
             dragActive
-              ? 'border-sky-500 bg-sky-950/20 scale-[1.01]'
-              : 'border-slate-700/80 bg-slate-900/50 hover:border-slate-600 hover:bg-slate-800/40'
+              ? 'border-sky-500 bg-sky-50 dark:bg-sky-950/20 scale-[1.01]'
+              : 'border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-900/50 hover:border-slate-400 dark:hover:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800/40'
           }`}
         >
           <input
@@ -159,15 +159,15 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             className="hidden"
           />
 
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-3">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400 mb-3">
             <UploadCloud className="w-7 h-7" />
           </div>
 
-          <p className="text-sm font-semibold text-white">
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">
             Drag and drop your CV file here
           </p>
-          <p className="text-xs text-slate-400 mt-1">
-            or <span className="text-sky-400 underline font-medium">browse from your device</span>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            or <span className="text-sky-600 dark:text-sky-400 underline font-medium">browse from your device</span>
           </p>
           <p className="text-[10px] text-slate-500 mt-3">
             Maximum file size: 10MB
@@ -181,9 +181,9 @@ export const UploadModal: React.FC<UploadModalProps> = ({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-4 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-start gap-3"
+              className="mt-4 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-300 text-xs flex items-start gap-3"
             >
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <AlertCircle className="w-4 h-4 text-rose-500 dark:text-rose-400 shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-semibold">{errorMessage}</p>
               </div>
@@ -193,24 +193,24 @@ export const UploadModal: React.FC<UploadModalProps> = ({
 
         {/* PROGRESS INDICATOR WITH ACTIVE EXTRACTION MODE */}
         {isProcessing && (
-          <div className="mt-4 p-4 rounded-xl bg-slate-800/80 border border-slate-700">
-            <div className="flex items-center justify-between text-xs text-slate-300 mb-2">
+          <div className="mt-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 mb-2">
               <span className="flex items-center gap-2 font-medium">
-                <Loader2 className="w-3.5 h-3.5 text-sky-400 animate-spin" />
+                <Loader2 className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 animate-spin" />
                 {hasApiKey ? (
-                  <span className="flex items-center gap-1.5 text-sky-300">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    Extracting with <strong className="text-white font-bold">AI Engine</strong>...
+                  <span className="flex items-center gap-1.5 text-sky-700 dark:text-sky-300">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                    Extracting with <strong className="text-slate-900 dark:text-white font-bold">AI Engine</strong>...
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1.5 text-slate-300">
-                    Extracting with <strong className="text-amber-400 font-bold">Local Offline Parser</strong>...
+                  <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                    Extracting with <strong className="text-amber-600 dark:text-amber-400 font-bold">Local Offline Parser</strong>...
                   </span>
                 )}
               </span>
-              <span className="font-mono text-sky-400">{progress}%</span>
+              <span className="font-mono text-sky-600 dark:text-sky-400">{progress}%</span>
             </div>
-            <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-sky-500 transition-all duration-300 ease-out"
                 style={{ width: `${progress}%` }}
@@ -222,3 +222,4 @@ export const UploadModal: React.FC<UploadModalProps> = ({
     </div>
   );
 };
+

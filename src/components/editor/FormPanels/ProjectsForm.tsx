@@ -83,14 +83,14 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center gap-2">
-          <FolderCheck className="w-4 h-4 text-indigo-400" />
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider">Featured Projects</h3>
+          <FolderCheck className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Featured Projects</h3>
         </div>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors"
+          className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors"
         >
           <Plus className="w-3.5 h-3.5" /> Add Project
         </button>
@@ -101,14 +101,14 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
           const techInputValue = rawTechs[proj.id] !== undefined ? rawTechs[proj.id] : (proj.technologies || []).join(', ');
 
           return (
-            <div key={proj.id} className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-4 space-y-3">
-              <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-900">
+            <div key={proj.id} className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 rounded-2xl p-4 space-y-3">
+              <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-200 dark:border-slate-900">
                 <span className="font-mono text-slate-500">#{idx + 1} {proj.name}</span>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => handleMove(idx, 'up')}
                     disabled={idx === 0}
-                    className="p-1 text-slate-500 hover:text-white disabled:opacity-20"
+                    className="p-1 text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white disabled:opacity-20 transition-colors"
                     title="Move Up"
                   >
                     <ChevronUp className="w-3.5 h-3.5" />
@@ -116,21 +116,21 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
                   <button
                     onClick={() => handleMove(idx, 'down')}
                     disabled={idx === projects.length - 1}
-                    className="p-1 text-slate-500 hover:text-white disabled:opacity-20"
+                    className="p-1 text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white disabled:opacity-20 transition-colors"
                     title="Move Down"
                   >
                     <ChevronDown className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => handleDuplicate(proj)}
-                    className="p-1 text-slate-400 hover:text-sky-400"
+                    className="p-1 text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
                     title="Duplicate Entry"
                   >
                     <Copy className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => handleDelete(proj.id)}
-                    className="p-1 text-slate-400 hover:text-rose-400"
+                    className="p-1 text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors"
                     title="Delete Entry"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -140,65 +140,65 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Project Name</label>
+                  <label className="block text-slate-700 dark:text-slate-400 font-medium mb-1">Project Name</label>
                   <input
                     type="text"
                     value={proj.name}
                     onChange={(e) => handleUpdate(proj.id, 'name', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-sky-500"
+                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-1.5 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Subtitle / Category</label>
+                  <label className="block text-slate-700 dark:text-slate-400 font-medium mb-1">Subtitle / Category</label>
                   <input
                     type="text"
                     value={proj.subtitle || ''}
                     onChange={(e) => handleUpdate(proj.id, 'subtitle', e.target.value)}
                     placeholder="e.g. MERN Stack Web Application"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-sky-500"
+                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-1.5 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1 flex items-center gap-1">
-                    <Github className="w-3 h-3 text-slate-400" /> GitHub Link
+                  <label className="block text-slate-700 dark:text-slate-400 font-medium mb-1 flex items-center gap-1">
+                    <Github className="w-3 h-3 text-slate-500 dark:text-slate-400" /> GitHub Link
                   </label>
                   <input
                     type="text"
                     value={proj.githubUrl || ''}
                     onChange={(e) => handleUpdate(proj.id, 'githubUrl', e.target.value)}
                     placeholder="github.com/user/repo"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-sky-500"
+                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-1.5 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1 flex items-center gap-1">
-                    <ExternalLink className="w-3 h-3 text-teal-400" /> Demo / Live Link
+                  <label className="block text-slate-700 dark:text-slate-400 font-medium mb-1 flex items-center gap-1">
+                    <ExternalLink className="w-3 h-3 text-teal-500 dark:text-teal-400" /> Demo / Live Link
                   </label>
                   <input
                     type="text"
                     value={proj.url || ''}
                     onChange={(e) => handleUpdate(proj.id, 'url', e.target.value)}
                     placeholder="youtube.com/watch?v=..."
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-sky-500"
+                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-1.5 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 font-medium mb-1">Description</label>
+                <label className="block text-xs text-slate-700 dark:text-slate-400 font-medium mb-1">Description</label>
                 <textarea
                   value={proj.description}
                   onChange={(e) => handleUpdate(proj.id, 'description', e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white leading-relaxed focus:outline-none focus:border-sky-500"
+                  className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-xs text-slate-900 dark:text-white leading-relaxed focus:outline-none focus:border-sky-500 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 font-medium mb-1">
+                <label className="block text-xs text-slate-700 dark:text-slate-400 font-medium mb-1">
                   Technologies Used (comma separated)
                 </label>
                 <input
@@ -206,7 +206,7 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
                   value={techInputValue}
                   onChange={(e) => handleTechsChange(proj.id, e.target.value)}
                   placeholder="React Native, Expo, Context API, REST APIs"
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500 font-mono"
+                  className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 font-mono transition-colors"
                 />
               </div>
             </div>
@@ -216,5 +216,6 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
     </div>
   );
 };
+
 
 

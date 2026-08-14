@@ -84,7 +84,7 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md overflow-y-auto"
       onClick={onClose}
     >
       <motion.div
@@ -92,12 +92,12 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md max-h-[90vh] bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col relative select-none font-sans"
+        className="w-full max-w-md max-h-[90vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col relative select-none font-sans"
       >
         {/* CLOSE BUTTON */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors z-10"
+          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
           title="Close Modal"
         >
           <X className="w-5 h-5" />
@@ -105,10 +105,10 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
 
         {/* MODAL HEADER */}
         <div className="flex items-center gap-2 mb-2 pr-8 shrink-0">
-          <Layers className="w-5 h-5 text-amber-400" />
-          <h3 className="text-lg font-bold text-white">Reorder & Hide Sections</h3>
+          <Layers className="w-5 h-5 text-amber-500 dark:text-amber-400" />
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white">Reorder & Hide Sections</h3>
         </div>
-        <p className="text-xs text-slate-400 mb-4 shrink-0">
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4 shrink-0">
           Click and hold to drag sections up or down to reorder, or toggle visibility.
         </p>
 
@@ -129,17 +129,17 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
                 onDragEnd={handleDragEnd}
                 className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-grab active:cursor-grabbing ${
                   isDragging
-                    ? 'opacity-30 border-dashed border-sky-500 bg-slate-800'
+                    ? 'opacity-30 border-dashed border-sky-500 bg-slate-100 dark:bg-slate-800'
                     : isTarget
-                    ? 'border-sky-400 bg-sky-500/15 shadow-lg shadow-sky-500/10 scale-[1.01]'
+                    ? 'border-sky-400 bg-sky-50 dark:bg-sky-500/15 shadow-lg shadow-sky-500/10 scale-[1.01]'
                     : isHidden
-                    ? 'bg-slate-950/50 border-slate-800/50 opacity-50'
-                    : 'bg-slate-800/80 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
+                    ? 'bg-slate-100/50 dark:bg-slate-950/50 border-slate-200 dark:border-slate-800/50 opacity-50'
+                    : 'bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <GripVertical className="w-4 h-4 text-slate-500 hover:text-slate-300 shrink-0" />
-                  <span className="text-xs font-semibold text-white truncate">
+                  <GripVertical className="w-4 h-4 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 shrink-0" />
+                  <span className="text-xs font-semibold text-slate-900 dark:text-white truncate">
                     {LABELS[secKey] || secKey}
                   </span>
                 </div>
@@ -148,7 +148,7 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
                   <button
                     onClick={() => handleMove(idx, 'up')}
                     disabled={idx === 0}
-                    className="p-1 text-slate-400 hover:text-white disabled:opacity-20 transition-colors"
+                    className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white disabled:opacity-20 transition-colors"
                     title="Move Up"
                   >
                     <ChevronUp className="w-4 h-4" />
@@ -156,7 +156,7 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
                   <button
                     onClick={() => handleMove(idx, 'down')}
                     disabled={idx === sectionOrder.length - 1}
-                    className="p-1 text-slate-400 hover:text-white disabled:opacity-20 transition-colors"
+                    className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white disabled:opacity-20 transition-colors"
                     title="Move Down"
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -165,8 +165,8 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
                     onClick={() => onToggleHideSection(secKey)}
                     className={`p-1.5 rounded-lg border transition-colors ${
                       isHidden
-                        ? 'bg-rose-500/10 border-rose-500/20 text-rose-400'
-                        : 'bg-slate-700 border-slate-600 text-slate-300'
+                        ? 'bg-rose-500/10 border-rose-500/20 text-rose-500 dark:text-rose-400'
+                        : 'bg-slate-200 dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300'
                     }`}
                     title={isHidden ? 'Show Section' : 'Hide Section'}
                   >
@@ -189,4 +189,5 @@ export const SectionOrderModal: React.FC<SectionOrderModalProps> = ({
     </div>
   );
 };
+
 

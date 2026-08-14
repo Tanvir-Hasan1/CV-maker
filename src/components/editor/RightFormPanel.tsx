@@ -25,7 +25,7 @@ export const RightFormPanel: React.FC<RightFormPanelProps> = ({
 }) => {
   return (
     <div
-      className="w-full h-full min-h-full flex-1 bg-slate-900 p-4 sm:p-6 overflow-y-auto shrink-0 select-none relative flex flex-col"
+      className="w-full h-full min-h-full flex-1 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 sm:p-6 overflow-y-auto shrink-0 select-none relative flex flex-col transition-colors"
     >
       {activeTab === 'personalInfo' && (
         <PersonalForm
@@ -112,8 +112,8 @@ export const RightFormPanel: React.FC<RightFormPanelProps> = ({
       )}
 
       {activeTab === 'additional' && (
-        <div className="space-y-4 text-xs text-slate-400">
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">
+        <div className="space-y-4 text-xs text-slate-600 dark:text-slate-400">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 pb-2">
             Languages & Additional Sections
           </h3>
           <p>You can edit languages directly on the preview pane or manage section ordering.</p>
@@ -122,3 +122,4 @@ export const RightFormPanel: React.FC<RightFormPanelProps> = ({
     </div>
   );
 };
+
