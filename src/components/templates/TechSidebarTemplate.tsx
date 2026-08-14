@@ -181,7 +181,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                     contentEditable
                     suppressContentEditableWarning
                     onBlur={(e) => updateEducationItem(edu.id, 'gpa', e.currentTarget.textContent?.replace('CGPA: ', '') || '')}
-                    className="px-1.5 py-0.2 rounded bg-sky-600 text-white font-bold text-[9px] hover:outline hover:outline-1 hover:outline-sky-400 focus:outline-2 focus:outline-sky-400 focus:bg-sky-700 focus:text-white cursor-text transition-all"
+                    className="inline-flex items-center px-2 py-0.5 rounded bg-sky-600 text-white font-bold text-[9px] leading-tight hover:outline hover:outline-1 hover:outline-sky-400 focus:outline-2 focus:outline-sky-400 focus:bg-sky-700 focus:text-white cursor-text transition-all"
                   >
                     CGPA: {edu.gpa}
                   </span>
@@ -324,7 +324,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                       contentEditable
                       suppressContentEditableWarning
                       onBlur={(e) => updateSingleProjectTech(proj.id, tIdx, e.currentTarget.textContent || '')}
-                      className={`text-[9.5px] px-1.5 py-0.5 rounded bg-sky-50 text-sky-800 font-medium border border-sky-100 ${editableClass}`}
+                      className={`text-[9.5px] px-1.5 py-0.5 rounded bg-sky-50 text-sky-800 font-medium border border-sky-100 whitespace-nowrap inline-flex items-center ${editableClass}`}
                     >
                       {tech}
                     </span>
@@ -384,10 +384,10 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
         )}
 
         {/* CONTACT INFO ROW */}
-        <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-xs text-slate-700 mb-2">
+        <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-1.5 text-xs text-slate-700 mb-2">
           {personalInfo.email && (
-            <span className="flex items-center gap-1">
-              <Mail className="w-3.5 h-3.5 text-amber-500" />
+            <span className="inline-flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-amber-500 shrink-0" />
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -399,8 +399,8 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.phone && (
-            <span className="flex items-center gap-1">
-              <Phone className="w-3.5 h-3.5 text-slate-500" />
+            <span className="inline-flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5 text-slate-500 shrink-0" />
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -412,8 +412,8 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.location && (
-            <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-rose-500" />
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -427,11 +427,11 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
         </div>
 
         {/* SOCIAL LINKS ROW */}
-        <div className="flex flex-wrap justify-center items-center gap-x-5 text-xs text-slate-700">
+        <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-1.5 text-xs text-slate-700">
           {personalInfo.linkedin && (
-            <span className="flex items-center gap-1">
-              <Linkedin className="w-3.5 h-3.5 text-sky-600" />
-              <span className="font-medium">LinkedIn:</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Linkedin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+              <span className="font-semibold text-slate-800">LinkedIn:</span>
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -443,9 +443,9 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.github && (
-            <span className="flex items-center gap-1">
-              <Github className="w-3.5 h-3.5 text-slate-800" />
-              <span className="font-medium">GitHub:</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Github className="w-3.5 h-3.5 text-slate-800 shrink-0" />
+              <span className="font-semibold text-slate-800">GitHub:</span>
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -457,9 +457,9 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.website && (
-            <span className="flex items-center gap-1">
-              <Globe className="w-3.5 h-3.5 text-teal-600" />
-              <span className="font-medium">Portfolio:</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+              <span className="font-semibold text-slate-800">Portfolio:</span>
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -510,7 +510,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                       contentEditable
                       suppressContentEditableWarning
                       onBlur={(e) => updateSkillCategoryName(cat.id, e.currentTarget.textContent || '')}
-                      className={`text-[11px] font-semibold text-slate-800 mb-1.5 inline-block ${editableClass}`}
+                      className={`text-[11px] font-bold text-slate-800 mb-1.5 block ${editableClass}`}
                     >
                       {cat.categoryName}
                     </p>
@@ -521,7 +521,7 @@ export const TechSidebarTemplate: React.FC<TemplateProps> = ({
                           contentEditable
                           suppressContentEditableWarning
                           onBlur={(e) => updateSingleSkill(cat.id, idx, e.currentTarget.textContent || '')}
-                          className={`text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-medium ${editableClass}`}
+                          className={`text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200 font-medium whitespace-nowrap inline-flex items-center leading-normal ${editableClass}`}
                         >
                           {skill}
                         </span>

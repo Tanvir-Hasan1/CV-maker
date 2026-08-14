@@ -5,6 +5,7 @@ export interface ParsedDocument {
   fileType: string;
   fileSize: number;
   rawText: string;
+  embeddedData?: ResumeData;
 }
 
 export type ExtractionStatus = 'found' | 'partial' | 'missing' | 'warning';

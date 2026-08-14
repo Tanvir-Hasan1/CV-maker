@@ -388,7 +388,7 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
                         contentEditable
                         suppressContentEditableWarning
                         onBlur={(e) => updateSingleProjectTech(proj.id, tIdx, e.currentTarget.textContent || '')}
-                        className={`text-[9.5px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-medium border border-slate-200 ${editableClass}`}
+                        className={`text-[9.5px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-medium border border-slate-200 whitespace-nowrap inline-flex items-center ${editableClass}`}
                       >
                         {tech}
                       </span>
@@ -508,10 +508,10 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
             {personalInfo.professionalTitle}
           </p>
         )}
-        <div className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-slate-300 mt-3 pt-3 border-t border-slate-700">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-slate-300 mt-3 pt-3 border-t border-slate-700">
           {personalInfo.email && (
-            <span className="flex items-center gap-1">
-              <Mail className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -523,8 +523,8 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.phone && (
-            <span className="flex items-center gap-1">
-              <Phone className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5 text-slate-300 shrink-0" />
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -536,8 +536,8 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.location && (
-            <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -549,8 +549,9 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.linkedin && (
-            <span className="flex items-center gap-1">
-              <Linkedin className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5">
+              <Linkedin className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <span className="font-semibold text-white">LinkedIn:</span>
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -562,8 +563,9 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.github && (
-            <span className="flex items-center gap-1">
-              <Github className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5">
+              <Github className="w-3.5 h-3.5 text-slate-200 shrink-0" />
+              <span className="font-semibold text-white">GitHub:</span>
               <span
                 contentEditable
                 suppressContentEditableWarning
@@ -575,8 +577,9 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.website && (
-            <span className="flex items-center gap-1">
-              <Globe className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+              <span className="font-semibold text-white">Portfolio:</span>
               <span
                 contentEditable
                 suppressContentEditableWarning

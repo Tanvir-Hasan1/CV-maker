@@ -347,7 +347,7 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
                         contentEditable
                         suppressContentEditableWarning
                         onBlur={(e) => updateSingleProjectTech(proj.id, tIdx, e.currentTarget.textContent || '')}
-                        className={`text-[9.5px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-medium border border-slate-200 ${editableClass}`}
+                        className={`text-[9.5px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-medium border border-slate-200 whitespace-nowrap inline-flex items-center ${editableClass}`}
                       >
                         {tech}
                       </span>
@@ -445,34 +445,53 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
             {personalInfo.professionalTitle}
           </p>
         )}
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 mt-2">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-600 mt-2">
           {personalInfo.email && (
-            <span className="flex items-center gap-1">
-              <Mail className="w-3 h-3" />
+            <span className="inline-flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-amber-500 shrink-0" />
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('email', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.email}
               </span>
             </span>
           )}
           {personalInfo.phone && (
-            <span className="flex items-center gap-1">
-              <Phone className="w-3 h-3" />
+            <span className="inline-flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5 text-slate-500 shrink-0" />
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('phone', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.phone}
               </span>
             </span>
           )}
           {personalInfo.location && (
-            <span className="flex items-center gap-1">
-              <MapPin className="w-3 h-3" />
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('location', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.location}
               </span>
             </span>
           )}
+          {personalInfo.linkedin && (
+            <span className="inline-flex items-center gap-1.5">
+              <Linkedin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+              <span className="font-semibold text-slate-800">LinkedIn:</span>
+              <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('linkedin', e.currentTarget.textContent || '')} className={editableClass}>
+                {personalInfo.linkedin}
+              </span>
+            </span>
+          )}
+          {personalInfo.github && (
+            <span className="inline-flex items-center gap-1.5">
+              <Github className="w-3.5 h-3.5 text-slate-800 shrink-0" />
+              <span className="font-semibold text-slate-800">GitHub:</span>
+              <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')} className={editableClass}>
+                {personalInfo.github}
+              </span>
+            </span>
+          )}
           {personalInfo.website && (
-            <span className="flex items-center gap-1">
-              <Globe className="w-3 h-3" />
+            <span className="inline-flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+              <span className="font-semibold text-slate-800">Portfolio:</span>
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.website}
               </span>

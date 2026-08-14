@@ -46,6 +46,24 @@ export class GeminiResumeParser implements ResumeParser {
   }
 
   async parse(doc: ParsedDocument): Promise<ParseResult> {
+    if (doc.embeddedData) {
+      console.log('🤖 Restoring resume directly from high-fidelity embedded data');
+      return {
+        data: doc.embeddedData,
+        confidence: [
+          { sectionKey: 'personalInfo', label: 'Personal Information', status: 'found', detectedCount: 4 },
+          { sectionKey: 'summary', label: 'Professional Summary', status: doc.embeddedData.summary ? 'found' : 'missing', detectedCount: doc.embeddedData.summary ? 1 : 0 },
+          { sectionKey: 'education', label: 'Education', status: doc.embeddedData.education?.length ? 'found' : 'missing', detectedCount: doc.embeddedData.education?.length || 0 },
+          { sectionKey: 'experience', label: 'Work Experience', status: doc.embeddedData.experience?.length ? 'found' : 'missing', detectedCount: doc.embeddedData.experience?.length || 0 },
+          { sectionKey: 'skillCategories', label: 'Technical Skills', status: doc.embeddedData.skillCategories?.length ? 'found' : 'missing', detectedCount: doc.embeddedData.skillCategories?.length || 0 },
+          { sectionKey: 'projects', label: 'Projects', status: doc.embeddedData.projects?.length ? 'found' : 'missing', detectedCount: doc.embeddedData.projects?.length || 0 },
+          { sectionKey: 'achievements', label: 'Achievements', status: doc.embeddedData.achievements?.length ? 'found' : 'missing', detectedCount: doc.embeddedData.achievements?.length || 0 },
+        ],
+        rawText: doc.rawText,
+        fileName: doc.fileName,
+      };
+    }
+
     if (!this.apiKey) {
       throw new Error('Please enter a free Gemini API key to enable AI extraction.');
     }

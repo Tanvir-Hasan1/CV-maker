@@ -245,6 +245,7 @@ export default function Home() {
     pdfExporter.exportToPDF({
       elementId: 'a4-cv-preview',
       fileName: `${activeDocument?.title || 'Resume'}.pdf`,
+      document: activeDocument || undefined,
     });
   };
 

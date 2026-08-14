@@ -16,11 +16,22 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
 /* Print CSS optimization for A4 documents */
 @media print {
-  body {
-    background: none !important;
-    color: black !important;
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .no-print {
@@ -34,8 +45,12 @@ body {
   .a4-page {
     box-shadow: none !important;
     margin: 0 !important;
-    width: 100% !important;
-    page-break-after: always;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
 

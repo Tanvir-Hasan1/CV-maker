@@ -525,7 +525,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.phone && (
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
               <span>•</span>
               <span
                 contentEditable
@@ -538,7 +538,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.location && (
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
               <span>•</span>
               <span
                 contentEditable
@@ -551,7 +551,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.linkedin && (
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
               <span>•</span>
               <span
                 contentEditable
@@ -564,7 +564,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.github && (
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
               <span>•</span>
               <span
                 contentEditable
@@ -577,7 +577,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.website && (
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
               <span>•</span>
               <span
                 contentEditable

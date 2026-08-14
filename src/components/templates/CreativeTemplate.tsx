@@ -220,6 +220,16 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
               {personalInfo.linkedin}
             </p>
           )}
+          {personalInfo.github && (
+            <p
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')}
+              className={editableClass}
+            >
+              {personalInfo.github}
+            </p>
+          )}
           {personalInfo.website && (
             <p
               contentEditable
@@ -422,7 +432,7 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
                           contentEditable
                           suppressContentEditableWarning
                           onBlur={(e) => updateSingleSkill(cat.id, i, e.currentTarget.textContent || '')}
-                          className={`text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium ${editableClass}`}
+                          className={`text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium whitespace-nowrap inline-flex items-center ${editableClass}`}
                         >
                           {s}
                         </span>
