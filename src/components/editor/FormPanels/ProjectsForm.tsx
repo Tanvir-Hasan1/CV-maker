@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Project } from '../../../types/cv';
-import { FolderCheck, Plus, Trash2, ExternalLink, Github } from 'lucide-react';
+import { FolderCheck, Plus, Trash2, ExternalLink, Github, Copy, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface ProjectsFormProps {
   projects: Project[];
@@ -59,6 +59,28 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
     onChange(projects.filter((p) => p.id !== id));
   };
 
+  const handleDuplicate = (proj: Project) => {
+    const dupId = 'proj-' + Date.now();
+    const dup: Project = {
+      ...proj,
+      id: dupId,
+      name: `${proj.name} (Copy)`,
+    };
+    if (rawTechs[proj.id] !== undefined) {
+      setRawTechs((prev) => ({ ...prev, [dupId]: prev[proj.id] }));
+    }
+    onChange([...projects, dup]);
+  };
+
+  const handleMove = (index: number, direction: 'up' | 'down') => {
+    const newIdx = direction === 'up' ? index - 1 : index + 1;
+    if (newIdx < 0 || newIdx >= projects.length) return;
+    const list = [...projects];
+    const [moved] = list.splice(index, 1);
+    list.splice(newIdx, 0, moved);
+    onChange(list);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between pb-2 border-b border-slate-800">
@@ -82,12 +104,38 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
             <div key={proj.id} className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-4 space-y-3">
               <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-900">
                 <span className="font-mono text-slate-500">#{idx + 1} {proj.name}</span>
-                <button
-                  onClick={() => handleDelete(proj.id)}
-                  className="p-1 text-slate-400 hover:text-rose-400"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => handleMove(idx, 'up')}
+                    disabled={idx === 0}
+                    className="p-1 text-slate-500 hover:text-white disabled:opacity-20"
+                    title="Move Up"
+                  >
+                    <ChevronUp className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => handleMove(idx, 'down')}
+                    disabled={idx === projects.length - 1}
+                    className="p-1 text-slate-500 hover:text-white disabled:opacity-20"
+                    title="Move Down"
+                  >
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => handleDuplicate(proj)}
+                    className="p-1 text-slate-400 hover:text-sky-400"
+                    title="Duplicate Entry"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(proj.id)}
+                    className="p-1 text-slate-400 hover:text-rose-400"
+                    title="Delete Entry"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
@@ -168,4 +216,5 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }
     </div>
   );
 };
+
 
