@@ -2,6 +2,7 @@ import React from 'react';
 import { ResumeData } from '../../types/cv';
 import { CVSettings } from '../../types/settings';
 import { Mail, Phone, MapPin, Linkedin, Github, Globe } from 'lucide-react';
+import { formatLink } from '../../utils/linkUtils';
 
 interface TemplateProps {
   data: ResumeData;
@@ -303,8 +304,18 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
                     </span>
                   )}
                   {proj.githubUrl && (
-                    <span className="flex items-center gap-1 font-mono text-slate-500">
-                      <Github className="w-3 h-3 text-slate-700" />
+                    <a
+                      href={formatLink(proj.githubUrl, 'github')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 font-mono text-slate-600 hover:text-sky-600 hover:underline"
+                      onClick={(e) => {
+                        if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                          e.stopPropagation();
+                        }
+                      }}
+                    >
+                      <Github className="w-3 h-3 text-slate-700 shrink-0" />
                       <span
                         contentEditable
                         suppressContentEditableWarning
@@ -313,11 +324,21 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
                       >
                         {proj.githubUrl}
                       </span>
-                    </span>
+                    </a>
                   )}
                   {proj.url && (
-                    <span className="flex items-center gap-1 font-mono text-sky-600">
-                      <Globe className="w-3 h-3 text-sky-600" />
+                    <a
+                      href={formatLink(proj.url, 'url')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 font-mono text-sky-600 hover:text-sky-700 hover:underline"
+                      onClick={(e) => {
+                        if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                          e.stopPropagation();
+                        }
+                      }}
+                    >
+                      <Globe className="w-3 h-3 text-sky-600 shrink-0" />
                       <span
                         contentEditable
                         suppressContentEditableWarning
@@ -326,7 +347,7 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
                       >
                         {proj.url}
                       </span>
-                    </span>
+                    </a>
                   )}
                 </div>
 
@@ -447,20 +468,36 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
         )}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-600 mt-2">
           {personalInfo.email && (
-            <span className="inline-flex items-center gap-1.5">
+            <a
+              href={formatLink(personalInfo.email, 'email')}
+              className="inline-flex items-center gap-1.5 hover:underline text-slate-600 hover:text-sky-600"
+              onClick={(e) => {
+                if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                  e.stopPropagation();
+                }
+              }}
+            >
               <Mail className="w-3.5 h-3.5 text-amber-500 shrink-0" />
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('email', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.email}
               </span>
-            </span>
+            </a>
           )}
           {personalInfo.phone && (
-            <span className="inline-flex items-center gap-1.5">
+            <a
+              href={formatLink(personalInfo.phone, 'phone')}
+              className="inline-flex items-center gap-1.5 hover:underline text-slate-600 hover:text-sky-600"
+              onClick={(e) => {
+                if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                  e.stopPropagation();
+                }
+              }}
+            >
               <Phone className="w-3.5 h-3.5 text-slate-500 shrink-0" />
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('phone', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.phone}
               </span>
-            </span>
+            </a>
           )}
           {personalInfo.location && (
             <span className="inline-flex items-center gap-1.5">
@@ -471,31 +508,61 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
             </span>
           )}
           {personalInfo.linkedin && (
-            <span className="inline-flex items-center gap-1.5">
+            <a
+              href={formatLink(personalInfo.linkedin, 'linkedin')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 hover:underline text-slate-600 hover:text-sky-600"
+              onClick={(e) => {
+                if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                  e.stopPropagation();
+                }
+              }}
+            >
               <Linkedin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
               <span className="font-semibold text-slate-800">LinkedIn:</span>
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('linkedin', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.linkedin}
               </span>
-            </span>
+            </a>
           )}
           {personalInfo.github && (
-            <span className="inline-flex items-center gap-1.5">
+            <a
+              href={formatLink(personalInfo.github, 'github')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 hover:underline text-slate-600 hover:text-sky-600"
+              onClick={(e) => {
+                if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                  e.stopPropagation();
+                }
+              }}
+            >
               <Github className="w-3.5 h-3.5 text-slate-800 shrink-0" />
               <span className="font-semibold text-slate-800">GitHub:</span>
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.github}
               </span>
-            </span>
+            </a>
           )}
           {personalInfo.website && (
-            <span className="inline-flex items-center gap-1.5">
+            <a
+              href={formatLink(personalInfo.website, 'url')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 hover:underline text-slate-600 hover:text-sky-600"
+              onClick={(e) => {
+                if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                  e.stopPropagation();
+                }
+              }}
+            >
               <Globe className="w-3.5 h-3.5 text-teal-600 shrink-0" />
               <span className="font-semibold text-slate-800">Portfolio:</span>
               <span contentEditable suppressContentEditableWarning onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')} className={editableClass}>
                 {personalInfo.website}
               </span>
-            </span>
+            </a>
           )}
         </div>
       </div>

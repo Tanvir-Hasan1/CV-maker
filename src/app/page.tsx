@@ -242,9 +242,9 @@ export default function Home() {
   };
 
   const handleExportPDF = () => {
-    pdfExporter.exportToPDF({
-      elementId: 'a4-cv-preview',
-      fileName: `${activeDocument?.title || 'Resume'}.pdf`,
+    const fileName = `${activeDocument?.data.personalInfo.fullName || activeDocument?.title || 'Resume'}.pdf`;
+    pdfExporter.exportVectorPDF({
+      fileName,
       document: activeDocument || undefined,
     });
   };

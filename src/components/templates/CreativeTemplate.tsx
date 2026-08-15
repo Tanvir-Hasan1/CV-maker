@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResumeData } from '../../types/cv';
 import { CVSettings } from '../../types/settings';
+import { formatLink } from '../../utils/linkUtils';
 
 interface TemplateProps {
   data: ResumeData;
@@ -181,24 +182,48 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
         </div>
         <div className="text-right text-xs space-y-1 text-slate-600 font-medium">
           {personalInfo.email && (
-            <p
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updatePersonalInfo('email', e.currentTarget.textContent || '')}
-              className={editableClass}
-            >
-              {personalInfo.email}
-            </p>
+            <div>
+              <a
+                href={formatLink(personalInfo.email, 'email')}
+                className="hover:underline hover:text-teal-700 inline-block"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
+              >
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('email', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.email}
+                </span>
+              </a>
+            </div>
           )}
           {personalInfo.phone && (
-            <p
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updatePersonalInfo('phone', e.currentTarget.textContent || '')}
-              className={editableClass}
-            >
-              {personalInfo.phone}
-            </p>
+            <div>
+              <a
+                href={formatLink(personalInfo.phone, 'phone')}
+                className="hover:underline hover:text-teal-700 inline-block"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
+              >
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('phone', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.phone}
+                </span>
+              </a>
+            </div>
           )}
           {personalInfo.location && (
             <p
@@ -211,34 +236,76 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
             </p>
           )}
           {personalInfo.linkedin && (
-            <p
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updatePersonalInfo('linkedin', e.currentTarget.textContent || '')}
-              className={editableClass}
-            >
-              {personalInfo.linkedin}
-            </p>
+            <div>
+              <a
+                href={formatLink(personalInfo.linkedin, 'linkedin')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-teal-700 inline-block"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
+              >
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('linkedin', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.linkedin}
+                </span>
+              </a>
+            </div>
           )}
           {personalInfo.github && (
-            <p
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')}
-              className={editableClass}
-            >
-              {personalInfo.github}
-            </p>
+            <div>
+              <a
+                href={formatLink(personalInfo.github, 'github')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-teal-700 inline-block"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
+              >
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.github}
+                </span>
+              </a>
+            </div>
           )}
           {personalInfo.website && (
-            <p
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')}
-              className={editableClass}
-            >
-              {personalInfo.website}
-            </p>
+            <div>
+              <a
+                href={formatLink(personalInfo.website, 'url')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-teal-700 inline-block"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
+              >
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.website}
+                </span>
+              </a>
+            </div>
           )}
         </div>
       </div>
@@ -354,24 +421,48 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
                         </span>
                       )}
                       {proj.githubUrl && (
-                        <span
-                          contentEditable
-                          suppressContentEditableWarning
-                          onBlur={(e) => updateProjectItem(proj.id, 'githubUrl', e.currentTarget.textContent || '')}
-                          className={`font-mono text-slate-500 ${editableClass}`}
+                        <a
+                          href={formatLink(proj.githubUrl, 'github')}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline hover:text-slate-800 inline-block"
+                          onClick={(e) => {
+                            if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                              e.stopPropagation();
+                            }
+                          }}
                         >
-                          {proj.githubUrl}
-                        </span>
+                          <span
+                            contentEditable
+                            suppressContentEditableWarning
+                            onBlur={(e) => updateProjectItem(proj.id, 'githubUrl', e.currentTarget.textContent || '')}
+                            className={`font-mono text-slate-500 ${editableClass}`}
+                          >
+                            {proj.githubUrl}
+                          </span>
+                        </a>
                       )}
                       {proj.url && (
-                        <span
-                          contentEditable
-                          suppressContentEditableWarning
-                          onBlur={(e) => updateProjectItem(proj.id, 'url', e.currentTarget.textContent || '')}
-                          className={`font-mono text-teal-700 ${editableClass}`}
+                        <a
+                          href={formatLink(proj.url, 'url')}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline hover:text-teal-900 inline-block"
+                          onClick={(e) => {
+                            if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                              e.stopPropagation();
+                            }
+                          }}
                         >
-                          {proj.url}
-                        </span>
+                          <span
+                            contentEditable
+                            suppressContentEditableWarning
+                            onBlur={(e) => updateProjectItem(proj.id, 'url', e.currentTarget.textContent || '')}
+                            className={`font-mono text-teal-700 ${editableClass}`}
+                          >
+                            {proj.url}
+                          </span>
+                        </a>
                       )}
                     </div>
 

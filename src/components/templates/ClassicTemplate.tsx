@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResumeData } from '../../types/cv';
 import { CVSettings } from '../../types/settings';
+import { formatLink } from '../../utils/linkUtils';
 
 interface TemplateProps {
   data: ResumeData;
@@ -349,27 +350,51 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
                   {proj.githubUrl && (
                     <span className="font-sans text-[10px] text-slate-600 not-italic">
                       • Code:{' '}
-                      <span
-                        contentEditable
-                        suppressContentEditableWarning
-                        onBlur={(e) => updateProjectItem(proj.id, 'githubUrl', e.currentTarget.textContent || '')}
-                        className={editableClass}
+                      <a
+                        href={formatLink(proj.githubUrl, 'github')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline hover:text-slate-900"
+                        onClick={(e) => {
+                          if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                            e.stopPropagation();
+                          }
+                        }}
                       >
-                        {proj.githubUrl}
-                      </span>
+                        <span
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) => updateProjectItem(proj.id, 'githubUrl', e.currentTarget.textContent || '')}
+                          className={editableClass}
+                        >
+                          {proj.githubUrl}
+                        </span>
+                      </a>
                     </span>
                   )}
                   {proj.url && (
                     <span className="font-sans text-[10px] text-slate-600 not-italic">
                       • Demo:{' '}
-                      <span
-                        contentEditable
-                        suppressContentEditableWarning
-                        onBlur={(e) => updateProjectItem(proj.id, 'url', e.currentTarget.textContent || '')}
-                        className={editableClass}
+                      <a
+                        href={formatLink(proj.url, 'url')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline hover:text-sky-700"
+                        onClick={(e) => {
+                          if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                            e.stopPropagation();
+                          }
+                        }}
                       >
-                        {proj.url}
-                      </span>
+                        <span
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) => updateProjectItem(proj.id, 'url', e.currentTarget.textContent || '')}
+                          className={editableClass}
+                        >
+                          {proj.url}
+                        </span>
+                      </a>
                     </span>
                   )}
                 </div>
@@ -515,26 +540,46 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
         )}
         <div className="flex flex-wrap justify-center items-center gap-3 text-xs text-slate-800 mt-3 font-sans">
           {personalInfo.email && (
-            <span
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updatePersonalInfo('email', e.currentTarget.textContent || '')}
-              className={editableClass}
+            <a
+              href={formatLink(personalInfo.email, 'email')}
+              className="hover:underline hover:text-slate-900"
+              onClick={(e) => {
+                if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                  e.stopPropagation();
+                }
+              }}
             >
-              {personalInfo.email}
-            </span>
+              <span
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => updatePersonalInfo('email', e.currentTarget.textContent || '')}
+                className={editableClass}
+              >
+                {personalInfo.email}
+              </span>
+            </a>
           )}
           {personalInfo.phone && (
             <span className="inline-flex items-center gap-1.5">
               <span>•</span>
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updatePersonalInfo('phone', e.currentTarget.textContent || '')}
-                className={editableClass}
+              <a
+                href={formatLink(personalInfo.phone, 'phone')}
+                className="hover:underline hover:text-slate-900"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
               >
-                {personalInfo.phone}
-              </span>
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('phone', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.phone}
+                </span>
+              </a>
             </span>
           )}
           {personalInfo.location && (
@@ -553,40 +598,76 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
           {personalInfo.linkedin && (
             <span className="inline-flex items-center gap-1.5">
               <span>•</span>
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updatePersonalInfo('linkedin', e.currentTarget.textContent || '')}
-                className={editableClass}
+              <a
+                href={formatLink(personalInfo.linkedin, 'linkedin')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-slate-900"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
               >
-                {personalInfo.linkedin}
-              </span>
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('linkedin', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.linkedin}
+                </span>
+              </a>
             </span>
           )}
           {personalInfo.github && (
             <span className="inline-flex items-center gap-1.5">
               <span>•</span>
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')}
-                className={editableClass}
+              <a
+                href={formatLink(personalInfo.github, 'github')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-slate-900"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
               >
-                {personalInfo.github}
-              </span>
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('github', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.github}
+                </span>
+              </a>
             </span>
           )}
           {personalInfo.website && (
             <span className="inline-flex items-center gap-1.5">
               <span>•</span>
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')}
-                className={editableClass}
+              <a
+                href={formatLink(personalInfo.website, 'url')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-slate-900"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).getAttribute('contenteditable') === 'true') {
+                    e.stopPropagation();
+                  }
+                }}
               >
-                {personalInfo.website}
-              </span>
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updatePersonalInfo('website', e.currentTarget.textContent || '')}
+                  className={editableClass}
+                >
+                  {personalInfo.website}
+                </span>
+              </a>
             </span>
           )}
         </div>
